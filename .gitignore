@@ -1,7 +1,31 @@
 # Build artifacts
+/ogod
 chain/ogod
+poc-4validator/chain/ogod
 chain/batchdemo-bin
+poc-4validator/chain/batchdemo-bin
+
 # Localnet runtime data (includes private validator keys, never commit)
 chain/localnet-data/
+poc-4validator/chain/localnet-data/
+
+# Node logs and snapshots (runtime output, never commit)
+/node.log
+chain/**/node.log
+poc-4validator/chain/**/node.log
+chain/snapshots/
+poc-4validator/chain/snapshots/
+*.tar.gz
+
+# Validator and node key material (never commit, anywhere)
+**/priv_validator_key.json
+**/priv_validator_state.json
+**/node_key.json
+**/keys/
+*.pem
+*.key
+.env
+.env.*
+
 # Go build cache
 .go-build-cache/

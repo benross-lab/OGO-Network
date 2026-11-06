@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1020" viewBox="0 0 1240 1020" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1240" height="1020" fill="#f8fafc"/>
+  <text x="620" y="38" text-anchor="middle" font-size="24" font-weight="bold" fill="#0f172a">OGO Network Deployment Architecture</text>
+  <text x="620" y="64" text-anchor="middle" font-size="14" fill="#475569">Independent Layer 1 (ogod, CometBFT) | OGO Wallet | Cloudflare | Supabase | 2026-11-06 | v0.1</text>
+
+  <!-- ============ TOP ROW: USERS / CLOUDFLARE / SUPABASE ============ -->
+  <!-- Users and wallets -->
+  <rect x="20" y="85" width="370" height="185" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="40" y="112" font-size="14" font-weight="bold" fill="#5b21b6">USERS AND WALLETS</text>
+  <rect x="40" y="125" width="330" height="52" rx="6" fill="#ffffff" stroke="#7c3aed"/>
+  <text x="52" y="146" font-size="13" font-weight="bold" fill="#1e293b">OGO Wallet (inside the OGO app)</text>
+  <text x="52" y="165" font-size="12" fill="#475569">Dashboard, send, receive, history, staking</text>
+  <rect x="290" y="132" width="68" height="18" rx="9" fill="#fef3c7" stroke="#d97706"/>
+  <text x="324" y="145" text-anchor="middle" font-size="10" font-weight="bold" fill="#92400e">BUILDING</text>
+  <rect x="40" y="188" width="330" height="52" rx="6" fill="#ffffff" stroke="#7c3aed"/>
+  <text x="52" y="209" font-size="13" font-weight="bold" fill="#1e293b">External wallets: Keplr, Leap, Cosmostation</text>
+  <text x="52" y="228" font-size="12" fill="#475569">Via public RPC and LCD plus chain registry</text>
+  <rect x="300" y="195" width="58" height="18" rx="9" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="329" y="208" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">NOT YET</text>
+  <text x="40" y="260" font-size="11" fill="#5b21b6">Keys never leave the wallet. Signing is local only.</text>
+
+  <!-- Cloudflare -->
+  <rect x="410" y="85" width="390" height="185" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="430" y="112" font-size="14" font-weight="bold" fill="#9a3412">CLOUDFLARE (app hosting)</text>
+  <rect x="430" y="125" width="350" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="442" y="146" font-size="13" font-weight="bold" fill="#1e293b">Pages: OGO frontend (ogosystems.com)</text>
+  <text x="442" y="165" font-size="12" fill="#475569">Serves the app. Does not run validator nodes.</text>
+  <rect x="700" y="132" width="68" height="18" rx="9" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="734" y="145" text-anchor="middle" font-size="10" font-weight="bold" fill="#166534">EXISTS</text>
+  <rect x="430" y="188" width="350" height="52" rx="6" fill="#ffffff" stroke="#ea580c"/>
+  <text x="442" y="209" font-size="13" font-weight="bold" fill="#1e293b">Worker: ogo-chat API</text>
+  <text x="442" y="228" font-size="12" fill="#475569">Reads chain, issues nonce, prepares unsigned tx.</text>
+  <rect x="700" y="195" width="68" height="18" rx="9" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="734" y="208" text-anchor="middle" font-size="10" font-weight="bold" fill="#166534">EXISTS</text>
+  <text x="430" y="260" font-size="11" fill="#9a3412">Worker NEVER holds keys, signs, or broadcasts.</text>
+
+  <!-- Supabase -->
+  <rect x="820" y="85" width="400" height="185" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="840" y="112" font-size="14" font-weight="bold" fill="#166534">SUPABASE (app data)</text>
+  <rect x="840" y="125" width="360" height="52" rx="6" fill="#ffffff" stroke="#16a34a"/>
+  <text x="852" y="146" font-size="13" font-weight="bold" fill="#1e293b">Auth, profiles, application data</text>
+  <text x="852" y="165" font-size="12" fill="#475569">Source of truth for app data, never for coin balances.</text>
+  <rect x="1110" y="132" width="68" height="18" rx="9" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1144" y="145" text-anchor="middle" font-size="10" font-weight="bold" fill="#166534">EXISTS</text>
+  <rect x="840" y="188" width="360" height="52" rx="6" fill="#ffffff" stroke="#16a34a"/>
+  <text x="852" y="209" font-size="13" font-weight="bold" fill="#1e293b">Coins / Credits ledger (ogo_wallets)</text>
+  <text x="852" y="228" font-size="12" fill="#475569">Platform ledger only. Never merged with on-chain coin.</text>
+  <rect x="1110" y="195" width="68" height="18" rx="9" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1144" y="208" text-anchor="middle" font-size="10" font-weight="bold" fill="#166534">EXISTS</text>
+  <text x="840" y="260" font-size="11" fill="#166534">Free plan, project ogo, us-east-1.</text>
+
+  <!-- Arrows: top row interactions -->
+  <line x1="605" y1="151" x2="815" y2="151" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="710" y="142" text-anchor="middle" font-size="11" fill="#334155">1. App data, auth</text>
+  <line x1="815" y1="214" x2="605" y2="214" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="710" y="242" text-anchor="middle" font-size="11" fill="#334155">2. Ledger reads / writes</text>
+
+  <!-- ============ BOTTOM: OGO NETWORK ============ -->
+  <rect x="20" y="290" width="1200" height="360" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="40" y="318" font-size="14" font-weight="bold" fill="#1e40af">OGO NETWORK: independent Layer 1 (ogod, CometBFT, Proof of Stake)</text>
+  <text x="1180" y="318" text-anchor="end" font-size="12" fill="#1e40af">Chain ID: TBD (local: ogo-local-1, ogo-poc-4val-1, TEST-ONLY)</text>
+
+  <!-- Validators -->
+  <rect x="40" y="332" width="640" height="150" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="56" y="356" font-size="13" font-weight="bold" fill="#1e293b">Validators (ogod, one process each, separate home, key, ports)</text>
+  <g font-size="12" font-weight="bold" text-anchor="middle">
+    <rect x="56" y="368" width="76" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="94" y="395" fill="#166534">V1</text>
+    <rect x="140" y="368" width="76" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="178" y="395" fill="#166534">V2</text>
+    <rect x="224" y="368" width="76" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="262" y="395" fill="#166534">V3</text>
+    <rect x="308" y="368" width="76" height="44" rx="6" fill="#dcfce7" stroke="#16a34a"/><text x="346" y="395" fill="#166534">V4</text>
+    <rect x="392" y="368" width="76" height="44" rx="6" fill="#fef3c7" stroke="#d97706"/><text x="430" y="395" fill="#92400e">V5</text>
+    <rect x="476" y="368" width="76" height="44" rx="6" fill="#fef3c7" stroke="#d97706"/><text x="514" y="395" fill="#92400e">V6</text>
+    <rect x="560" y="368" width="76" height="44" rx="6" fill="#fef3c7" stroke="#d97706"/><text x="598" y="395" fill="#92400e">V7</text>
+  </g>
+  <text x="56" y="432" font-size="12" fill="#475569">V1-V4 green: minimum fault-tolerant set, proven by the PoC (3 of 4 keeps consensus).</text>
+  <text x="56" y="450" font-size="12" fill="#475569">V5-V7 amber: initial private testnet target is 7 validators. 3 = local prototype.</text>
+  <text x="56" y="468" font-size="12" fill="#475569">50+ = decentralization target, not a launch parameter. Consensus keys in remote signer (cosmos/kms).</text>
+
+  <!-- Sentries -->
+  <rect x="40" y="494" width="640" height="132" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="56" y="518" font-size="13" font-weight="bold" fill="#1e293b">Sentry nodes (shield validators from the public network)</text>
+  <text x="56" y="540" font-size="12" fill="#475569">At least 1 sentry per validator at mainnet; 2 for one validator in the O1 proof.</text>
+  <text x="56" y="560" font-size="12" fill="#475569">Sentry topology NOT YET demonstrated (single-machine localnet only).</text>
+  <rect x="56" y="572" width="150" height="18" rx="9" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="131" y="585" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">NOT YET</text>
+  <text x="56" y="612" font-size="12" fill="#475569">P2P gossip (CometBFT, port 26656) runs validator to sentry to public peers.</text>
+
+  <!-- Public services -->
+  <rect x="700" y="332" width="500" height="294" rx="8" fill="#ffffff" stroke="#2563eb"/>
+  <text x="716" y="356" font-size="13" font-weight="bold" fill="#1e293b">Public services (what the wallet and app call)</text>
+  <g font-size="12">
+    <text x="716" y="382" font-weight="bold" fill="#1e293b">CometBFT RPC (public, CORS)</text>
+    <text x="716" y="400" fill="#475569">Broadcast signed tx, blocks, validators, status</text>
+    <rect x="1090" y="370" width="92" height="18" rx="9" fill="#dcfce7" stroke="#16a34a"/>
+    <text x="1136" y="383" text-anchor="middle" font-size="10" font-weight="bold" fill="#166534">LOCAL ONLY</text>
+    <text x="716" y="426" font-weight="bold" fill="#1e293b">LCD / REST (public, CORS)</text>
+    <text x="716" y="444" fill="#475569">Balances, supply, staking, gov, tx by hash</text>
+    <rect x="1090" y="414" width="92" height="18" rx="9" fill="#fef3c7" stroke="#d97706"/>
+    <text x="1136" y="427" text-anchor="middle" font-size="10" font-weight="bold" fill="#92400e">BUILDING</text>
+    <text x="716" y="470" font-weight="bold" fill="#1e293b">Indexer API</text>
+    <text x="716" y="488" fill="#475569">Paginated history by address, block, validator</text>
+    <rect x="1090" y="458" width="92" height="18" rx="9" fill="#fef3c7" stroke="#d97706"/>
+    <text x="1136" y="471" text-anchor="middle" font-size="10" font-weight="bold" fill="#92400e">BUILDING</text>
+    <text x="716" y="514" font-weight="bold" fill="#1e293b">Explorer (OGO Scan)</text>
+    <text x="716" y="532" fill="#475569">Balances and history, links to the chain</text>
+    <rect x="1090" y="502" width="92" height="18" rx="9" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="1136" y="515" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">NOT YET</text>
+    <text x="716" y="558" font-weight="bold" fill="#1e293b">gRPC</text>
+    <text x="716" y="576" fill="#475569">Not specified in the specs; standard default port 9090</text>
+    <rect x="1090" y="546" width="92" height="18" rx="9" fill="#f1f5f9" stroke="#64748b"/>
+    <text x="1136" y="559" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">NOT SET</text>
+    <text x="716" y="602" font-weight="bold" fill="#1e293b">Cosmovisor upgrades (M2)</text>
+    <text x="716" y="620" fill="#475569">Framework-selection blocking; not executed yet</text>
+  </g>
+
+  <!-- Arrows: top row down to network -->
+  <line x1="205" y1="270" x2="205" y2="290" stroke="#2563eb" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="215" y="284" font-size="11" fill="#1e40af">3. Wallet reads LCD/RPC; broadcasts signed tx</text>
+  <line x1="605" y1="270" x2="605" y2="290" stroke="#2563eb" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="615" y="284" font-size="11" fill="#1e40af">4. Worker reads chain to verify (never signs)</text>
+  <line x1="1020" y1="270" x2="1020" y2="290" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr)"/>
+  <text x="1030" y="284" font-size="11" fill="#475569">5. No direct Supabase to chain link</text>
+
+  <!-- ============ LEGEND AND NOTES ============ -->
+  <rect x="20" y="672" width="1200" height="120" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="40" y="698" font-size="13" font-weight="bold" fill="#0f172a">Status legend</text>
+  <rect x="40" y="710" width="22" height="14" rx="4" fill="#dcfce7" stroke="#16a34a"/><text x="70" y="722" font-size="12" fill="#1e293b">Exists today (local or live)</text>
+  <rect x="280" y="710" width="22" height="14" rx="4" fill="#fef3c7" stroke="#d97706"/><text x="310" y="722" font-size="12" fill="#1e293b">Being built (Milestone C, wallet track)</text>
+  <rect x="600" y="710" width="22" height="14" rx="4" fill="#f1f5f9" stroke="#64748b"/><text x="630" y="722" font-size="12" fill="#1e293b">Not yet (public testnet, mainnet, explorer)</text>
+  <text x="40" y="752" font-size="12" font-weight="bold" fill="#0f172a">Trust boundaries</text>
+  <text x="40" y="770" font-size="12" fill="#475569">Chain is the source of truth for native OGO Coin balances. Supabase is the source of truth for app data and the Coins/Credits ledger. Keys never leave the wallet; the Worker never signs.</text>
+
+  <rect x="20" y="812" width="1200" height="188" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="40" y="838" font-size="13" font-weight="bold" fill="#0f172a">Deployment stages and cost</text>
+  <text x="40" y="862" font-size="12" fill="#475569">1. Local devnet (today): 3 or 4 validators on one machine, TEST-ONLY tokens, demo.sh / run-poc.sh start and stop. Cost: $0.</text>
+  <text x="40" y="884" font-size="12" fill="#475569">2. Private cloud devnet (next, needs a spending decision): same chain on separate hosts, still private and TEST-ONLY. Proves independence and sentries.</text>
+  <text x="40" y="906" font-size="12" fill="#475569">3. Public testnet (not authorized): independent validators, faucet, documented genesis, runbook. Needs separate explicit approval.</text>
+  <text x="40" y="928" font-size="12" fill="#475569">4. Mainnet (not authorized): 5 audits, written legal analysis, genesis approved in writing, operations readiness, incident exercise, separate written launch approval.</text>
+  <text x="40" y="950" font-size="12" fill="#475569">Recommended paid hosting when approved: Hetzner dedicated vCPU (CCX23 about 86 euros/mo, CCX33 about 138 euros/mo, June 2026 prices, recheck before purchase). Runner-up: DigitalOcean General Purpose (4 vCPU, 16 GB, $126/mo). Free remote option only: Oracle Always Free (2 OCPU, 12 GB ARM, after the June 2026 cut), with capacity limits.</text>
+  <text x="40" y="972" font-size="12" fill="#475569">Framework selection stays open until M2 (genuine Cosmovisor upgrade and state migration) and the other mandatory criteria pass.</text>
+  <text x="40" y="992" font-size="11" fill="#94a3b8">Source: OGO Network Deployment Architecture v0.1, 2026-11-06. No em dashes used in this diagram.</text>
+</svg>

@@ -14,9 +14,9 @@ import (
 // and each one must FAIL. The tests in bypass_test.go attempt all of them
 // and assert supply is unchanged afterwards.
 //
-// Vector 1 — Privileged module accounts.
-// Vector 2 — Governance upgrades.
-// Vector 3 — Smart-contract (CosmWasm) interfaces.
+// Vector 1: Privileged module accounts.
+// Vector 2: Governance upgrades.
+// Vector 3: Smart-contract (CosmWasm) interfaces.
 
 // ---------------------------------------------------------------------------
 // Vector 1: privileged module accounts

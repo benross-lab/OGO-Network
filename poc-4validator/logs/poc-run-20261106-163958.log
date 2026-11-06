@@ -1,0 +1,278 @@
+
+=== OGO Network 4-validator proof of concept run, all values TEST-ONLY ===
+Run started: 2026-11-06T16:39:58Z UTC
+Four validators, one shared genesis, epoch mode on (20s epochs).
+Chain: ogo-poc-4val-1. Denom: uogo (proposed, 6 decimals).
+RPC ports: 26757, 26767, 26777, 26787. P2P ports: 26756, 26766, 26776, 26786.
+Log: /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/logs/poc-run-20261106-163958.log
+
+=== Step 1: build and start 4 validators ===
+building ogod...
+built /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/ogod
+initializing 4-validator localnet in /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data (TEST-ONLY values)
+  init val1
+  init val2
+  init val3
+  init val4
+  alice: ogo1je9dpmpa72zj79sr6xcqy6ekddplum70509xrc
+  bob:   ogo1pan9ekyyj5h9zackwm82wuks9zu8jw6tp7zpwr
+added genesis account ogo1je9dpmpa72zj79sr6xcqy6ekddplum70509xrc: 600000000 uogo
+genesis total supply now: 600000000 / max 1000010000
+added genesis account ogo1pan9ekyyj5h9zackwm82wuks9zu8jw6tp7zpwr: 400000000 uogo
+genesis total supply now: 1000000000 / max 1000010000
+genesis validators set to 4:
+  22EB60717DC76CC124525DBD1079A41E363FB3CB power=10 name=val1
+  5A0623ADFB669112B4740A1D192C0E1DC3D5000A power=10 name=val2
+  03DADA1C7B5DF287742056BB84BAA8B779C8A722 power=10 name=val3
+  3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB power=10 name=val4
+genesis VALID: max_supply=1000010000 total=1000000000 denom=uogo
+localnet initialized: 4 validators, epoch duration 20s (TEST-ONLY)
+genesis accounts: alice 600000000, bob 400000000 (TEST-ONLY)
+starting 4 validators...
+  val1 started (pid 33450, rpc 127.0.0.1:26757, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data/val1/node.log)
+  val2 started (pid 33459, rpc 127.0.0.1:26767, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data/val2/node.log)
+  val3 started (pid 33468, rpc 127.0.0.1:26777, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data/val3/node.log)
+  val4 started (pid 33482, rpc 127.0.0.1:26787, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data/val4/node.log)
+waiting for all 4 nodes to reach height 5...
+all 4 nodes producing blocks
+verifying the same ledger state on all 4 nodes...
+comparing at height 5
+val1: app_hash=56E949B1F4795E4ADFAB93709FC3F55DFCCB1081CB8E9C77F10AD31D84059164
+val2: app_hash=56E949B1F4795E4ADFAB93709FC3F55DFCCB1081CB8E9C77F10AD31D84059164
+val3: app_hash=56E949B1F4795E4ADFAB93709FC3F55DFCCB1081CB8E9C77F10AD31D84059164
+val4: app_hash=56E949B1F4795E4ADFAB93709FC3F55DFCCB1081CB8E9C77F10AD31D84059164
+val1: alice=600000000 bob=400000000 supply=1000000000 issued=0
+val2: alice=600000000 bob=400000000 supply=1000000000 issued=0
+val3: alice=600000000 bob=400000000 supply=1000000000 issued=0
+val4: alice=600000000 bob=400000000 supply=1000000000 issued=0
+VERIFY OK: all 4 nodes agree on balances, supply, issuance, and app hash at height 5
+alice: ogo1je9dpmpa72zj79sr6xcqy6ekddplum70509xrc
+bob:   ogo1pan9ekyyj5h9zackwm82wuks9zu8jw6tp7zpwr
+
+=== Step 2: wait for the first epoch boundary (epoch issuance executing) ===
+Epoch duration is 20s (TEST-ONLY). Polling until the hook mints...
+Epoch state on val1:
+{
+  "current_epoch": "2",
+  "current_epoch_start_height": "13",
+  "current_epoch_start_time": "2026-11-06T16:40:24Z",
+  "duration_seconds": "20",
+  "enabled": "true",
+  "epoch_counting_started": "true",
+  "hook_fire_count": "1",
+  "identifier": "monetary",
+  "implementation": "epoch-timer-mirror (not SDK x/epochs); see EPOCHS_GAP.md",
+  "issued_by_period": "0:1000",
+  "last_hook_error": "",
+  "start_time": "2026-11-06T16:40:04Z",
+  "total_issued": "1000"
+}
+Rewards pool balance (the mint recipient):
+{
+  "address": "ogo1rewardspool",
+  "balance": "1000",
+  "denom": "uogo"
+}
+Supply:
+{
+  "burned": "0",
+  "denom": "uogo",
+  "headroom": "9000",
+  "max_supply": "1000010000",
+  "total_supply": "1000001000"
+}
+
+=== Step 3: transfer 123456 uogo from alice to bob (fee 100 uogo, TEST-ONLY) ===
+Measuring broadcast time (fee is flat per transaction in this scaffold; there is no gas metering yet).
+tx hash: AA1BD7168A5ED6D9FB051F8A27043DD7CF92527CCD9D4A8F6533F6A307F3369A code: 0 log: sent 123456 uogo from ogo1je9dpmpa72zj79sr6xcqy6ekddplum70509xrc to ogo1pan9ekyyj5h9zackwm82wuks9zu8jw6tp7zpwr (fee 100)
+broadcast took 102 ms
+Waiting 3s for the transfer to commit...
+
+=== Step 4: same balances from all four nodes ===
+--- val1 (rpc 127.0.0.1:26757) ---
+alice: 599876444
+bob:   400123456
+--- val2 (rpc 127.0.0.1:26767) ---
+alice: 599876444
+bob:   400123456
+--- val3 (rpc 127.0.0.1:26777) ---
+alice: 599876444
+bob:   400123456
+--- val4 (rpc 127.0.0.1:26787) ---
+alice: 599876444
+bob:   400123456
+Expected: alice 599876444 (600000000 - 123456 - 100 fee), bob 400123456.
+
+=== Step 5: verify the same ledger state on all four nodes ===
+verifying the same ledger state on all 4 nodes...
+comparing at height 17
+val1: app_hash=0DCC045C8EDE7F104DDA10489E515D6F24CE372B64966D8A878550E29D3341C4
+val2: app_hash=0DCC045C8EDE7F104DDA10489E515D6F24CE372B64966D8A878550E29D3341C4
+val3: app_hash=0DCC045C8EDE7F104DDA10489E515D6F24CE372B64966D8A878550E29D3341C4
+val4: app_hash=0DCC045C8EDE7F104DDA10489E515D6F24CE372B64966D8A878550E29D3341C4
+val1: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+val2: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+val3: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+val4: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+VERIFY OK: all 4 nodes agree on balances, supply, issuance, and app hash at height 17
+
+=== Step 6: voting power per validator ===
+voting power per validator (CometBFT /validators RPC, TEST-ONLY network)
+genesis validator set (val1 genesis.json):
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+val1 (rpc 127.0.0.1:26757):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val1: 40
+val2 (rpc 127.0.0.1:26767):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val2: 40
+val3 (rpc 127.0.0.1:26777):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val3: 40
+val4 (rpc 127.0.0.1:26787):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val4: 40
+genesis total voting power: 40
+
+=== Step 7: S5 fault tolerance (liveness half): val4 stops, blocks continue, val4 rejoins ===
+S5 fault-tolerance test: 1 of 4 validators offline, chain must continue
+--- voting power before the outage ---
+voting power per validator (CometBFT /validators RPC, TEST-ONLY network)
+genesis validator set (val1 genesis.json):
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+val1 (rpc 127.0.0.1:26757):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val1: 40
+val2 (rpc 127.0.0.1:26767):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val2: 40
+val3 (rpc 127.0.0.1:26777):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val3: 40
+val4 (rpc 127.0.0.1:26787):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val4: 40
+genesis total voting power: 40
+height on val1 before the outage: 18
+stopping val4 cleanly...
+  stopped val4
+val4 stopped at val1 height 18; sampling val1 height at 0s, 10s, 20s, 30s after the stop...
+  t+0s:  val1 height=18
+  t+10s: val1 height=22
+  t+20s: val1 height=26
+  t+30s: val1 height=30
+val4 RPC confirmed DOWN during the outage
+S5 LIVENESS OK: height advanced 18 -> 30 with val4 down (samples: 18, 22, 26, 30)
+restarting val4 and waiting for it to catch up...
+  val4 restarted (pid 34616)
+val4 caught up to height 31 (val1: 31)
+--- voting power after the outage ---
+voting power per validator (CometBFT /validators RPC, TEST-ONLY network)
+genesis validator set (val1 genesis.json):
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+val1 (rpc 127.0.0.1:26757):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val1: 40
+val2 (rpc 127.0.0.1:26767):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val2: 40
+val3 (rpc 127.0.0.1:26777):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val3: 40
+val4 (rpc 127.0.0.1:26787):
+  power=10 address=03DADA1C7B5DF287742056BB84BAA8B779C8A722
+  power=10 address=22EB60717DC76CC124525DBD1079A41E363FB3CB
+  power=10 address=3584A6A1C7B929A9C3EBE7C954E3C9D63003A8CB
+  power=10 address=5A0623ADFB669112B4740A1D192C0E1DC3D5000A
+  total voting power reported by val4: 40
+genesis total voting power: 40
+verifying all 4 nodes agree after the outage...
+verifying the same ledger state on all 4 nodes...
+comparing at height 31
+val1: app_hash=CBB21034281AFBF398EE7A3DDBE33C7F951360CA73EA80B5E2F2A26F42061EDB
+val2: app_hash=CBB21034281AFBF398EE7A3DDBE33C7F951360CA73EA80B5E2F2A26F42061EDB
+val3: app_hash=CBB21034281AFBF398EE7A3DDBE33C7F951360CA73EA80B5E2F2A26F42061EDB
+val4: app_hash=CBB21034281AFBF398EE7A3DDBE33C7F951360CA73EA80B5E2F2A26F42061EDB
+val1: alice=599876444 bob=400123456 supply=1000002710 issued=2710
+val2: alice=599876444 bob=400123456 supply=1000002710 issued=2710
+val3: alice=599876444 bob=400123456 supply=1000002710 issued=2710
+val4: alice=599876444 bob=400123456 supply=1000002710 issued=2710
+VERIFY OK: all 4 nodes agree on balances, supply, issuance, and app hash at height 31
+S5 COMPLETE: blocks continued with 1 of 4 validators offline, val4 restarted and synced, all 4 nodes agree
+
+=== Step 8: block-time distribution over 60 seconds ===
+sampling block heights on val1 for 60s (one sample per second)...
+samples saved to /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/localnet-data/blocktimes-20261106-164120.csv
+blocktimes: heights observed: 40 (first 35, last 74)
+blocktimes: intervals measured: 39
+blocktimes: count=39 min=1.023s median=1.049s p95=2.108s max=2.175s
+blocktimes: within 1 to 10 seconds: 39 of 39 (100.0 percent)
+blocktimes: all intervals (seconds): 1.030, 1.051, 2.072, 1.027, 2.050, 1.027, 2.056, 1.029, 2.053, 1.024, 1.023, 2.050, 1.041, 1.111, 2.070, 1.028, 1.031, 2.052, 2.063, 1.032, 2.061, 1.027, 1.029, 2.175, 1.049, 2.050, 1.032, 1.073, 2.079, 1.027, 2.060, 1.030, 2.053, 1.025, 1.041, 2.108, 1.025, 2.051, 1.024
+
+=== Step 9: snapshot and restore val4 (O1 runbook steps, executed for real) ===
+snapshotting val4 to /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz ...
+  stopped val4
+  snapshot size: 796K
+  val4 restarted (pid 35594)
+SNAPSHOT OK: val4 snapshot /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz size 796K, stop plus snapshot plus restart took 5s, val4 height 78
+/home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz
+snapshot file: /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz
+restoring val4 from snapshot /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz ...
+  stopped val4
+  val4 restarted (pid 35711)
+RESTORE OK: val4 restored from /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/chain/snapshots/val4-20261106-164220.tar.gz, caught up to height 78 (val1: 79), restore plus catch-up took 5s
+final verification after restore:
+verifying the same ledger state on all 4 nodes...
+comparing at height 79
+val1: app_hash=761116048D6A43CF00E15254C22255FED1D14D9FEE6E885B6B1C5154ECE25D5A
+val2: app_hash=761116048D6A43CF00E15254C22255FED1D14D9FEE6E885B6B1C5154ECE25D5A
+val3: app_hash=761116048D6A43CF00E15254C22255FED1D14D9FEE6E885B6B1C5154ECE25D5A
+val4: app_hash=
+MISMATCH: val4 app_hash differs
+VERIFY FAILED: nodes disagree on app hash at height 79
+
+stopping the localnet...
+PoC run wall-clock observed window: 154 seconds (started 2026-11-06T16:39:58Z UTC, ended 2026-11-06T16:42:32Z UTC)
+full log: /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-poc-4validator/logs/poc-run-20261106-163958.log

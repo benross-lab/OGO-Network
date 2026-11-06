@@ -1,86 +1,28 @@
-# OGO Network Local Prototype (Milestones 1-2)
+# OGO Network
 
-Status: local prototype, Milestones 1 (repository initialization)
-and 2 (consensus and epoch execution). Local only. No deployment,
-no token issuance, no testnet, no mainnet, no production change, no
-spending. All monetary values are TEST-ONLY and are labelled so
-everywhere they appear.
+OGO Network is an independent open-source Layer 1 blockchain with native OGO Coin: fixed maximum supply, scheduled issuance, zero reserved founder allocation, community governance. OGO Systems creates the initial technology. The OGO community ultimately governs the network.
 
-## What the prototype is
+Status: local prototype only. The chain in this repository runs on one machine as a development network. There is no mainnet, no public testnet, no token issued, no spending, and no production infrastructure. A public testnet is NOT authorized: do not present one as available. All monetary values in the prototype are TEST-ONLY and are labelled so everywhere they appear.
 
-A runnable local OGO Network chain that demonstrates the
-architecture: a CometBFT ABCI 2.0 application whose state machine is
-`x/ogocoin` (fixed maximum supply plus scheduled issuance, zero
-reserved founder allocation), running on THREE local validators that
-produce blocks and agree on the same ledger. Epoch issuance executes
-through the monetary `AfterEpochEnd` hook, proven by a hook-fires
-test in the wired application, not by a compile check.
+## What is here
 
-The network operates independently of the OGO application. The
-application is a client of the network, not its authority: nothing
-in this prototype reads from or writes to Supabase, the OGO
-Cloudflare Worker, or benross-lab/OGO. There is no code path from
-the chain to the application at all.
+- `chain/`: the Go implementation of the prototype chain. A CometBFT ABCI 2.0 application whose state machine is `x/ogocoin` (fixed maximum supply plus scheduled issuance, zero reserved founder allocation), running on three local validators that produce blocks and agree on the same ledger. Epoch issuance executes through the monetary `AfterEpochEnd` hook.
+- `demo.sh`: the narrated end-to-end demonstration of the three-validator prototype.
+- `poc-4validator/`: the separate four-validator fault-tolerance proof of concept, kept as reference evidence. It demonstrates liveness with one validator down (S5), plus snapshot and restore (O1). See its README and RUNBOOK.
+- `docs/`: the finished network documentation. Architecture plan v1.1 and the eleven specifications (`docs/architecture/`), the monetary research (`docs/monetary/`), the deployment architecture (`docs/deployment/`), the early design-phase records (`docs/early/`), the prototype readme as of 2026-11-06 (`docs/prototype-readme-2026-11-06.md`), and the discrepancy resolutions (`docs/discrepancy-resolutions-2026-11-06.md` with recomputation scripts in `docs/discrepancy-resolutions/`).
+- `logs/`: the run logs from the 2026-11-06 local prototype runs, kept as evidence.
 
-## Validator count: three for the prototype, larger targets for later
+## What is NOT here
 
-Benross decided the authorized local prototype uses THREE
-validators. This is the execution requirement for the local
-prototype only, and it is distinct from the larger validator
-targets proposed for later networks:
-
-- **3 validators, local prototype (this repo).** The decided count
-  for demonstrating consensus, epoch execution, and transfers
-  locally.
-- **4 validators, minimum operational set.** BFT consensus needs
-  3f+1 validators to tolerate f faulty validators, so 4 is the
-  smallest set that tolerates one faulty validator and can
-  demonstrate liveness with one validator down (the S5 test:
-  take 1 of 4 offline, the remaining 3 keep producing blocks).
-  That is a target for a later multi-validator testnet, not this
-  prototype.
-- **50 or more validators, decentralization target.** The
-  sufficiently-decentralized target for a public network
-  (Nakamoto coefficient at least 10, top 10 under 33 percent).
-  Also a later-network target, not this prototype.
-
-With 3 validators the network tolerates zero faulty validators:
-stopping one leaves 2 of 3 (exactly two thirds, not more), so there
-is no quorum and block production halts. That halt is expected BFT
-behaviour for this count, not a failure. The localnet's liveness
-action therefore tests halt-and-resume (stop one validator, confirm
-the halt, restart it, confirm blocks resume and nodes agree).
-
-## Scope confirmations
-
-- Keplr and live IBC are NOT prerequisites for this prototype.
-  Wallet integration (Keplr, Leap) and live IBC relaying are later
-  milestones; the prototype demonstrates consensus, epochs, and
-  transfers without them.
-- The first monetary prototype is independent of smart contracts.
-  CosmWasm is evaluated separately before adoption; the wasmd
-  module is pinned and compiled but the VM is not instantiated.
-- The epoch timer is a mirror, not the SDK module. See
-  `chain/EPOCHS_GAP.md`: `x/ogocoin/epochs.go` reproduces the pinned
-  SDK x/epochs BeginBlocker semantics exactly, because the scaffold
-  is a custom ABCI app and real x/epochs needs the full depinject
-  SDK app (Milestone C). Do not present the mirror as SDK x/epochs
-  integration.
-
-## Layout
-
-- `chain/`: the Go module: `app/` (ABCI app), `cmd/ogod` (CLI),
-  `x/ogocoin/` (monetary module plus the epoch timer mirror),
-  `scripts/localnet.sh` (3-validator localnet), `Makefile`,
-  `MODULE_BOUNDARIES.md`, `EPOCHS_GAP.md`, `README.md`.
-- `demo.sh`: the narrated end-to-end demonstration (this file's
-  next section).
+- OGO Wallet: a separate repository, not created yet. The wallet lives in the OGO application for now and will move to its own repository later.
+- OGO Explorer: a future repository, not created yet. No placeholder.
+- Milestone C: the implementation milestone (real SDK modules, real x/epochs wiring, signature verification, staking, slashing, upgrades) is in progress in local staging and is NOT in this repository. It lands when its own completion verification passes.
+- The whitepaper draft, the exchange readiness report, the finance provider research, and the economy work: not network implementation scope, not published here.
+- No license has been selected yet. This code is published without a license pending the founder's decision. Do not assume a license.
 
 ## Build
 
-Prerequisites: Go 1.25.7 at `~/workspace/tools/go-1.25.7/bin/go`
-(the locked prototype toolchain). Go commands need the workspace
-temp and build caches because the /tmp tmpfs is only 512 MB:
+Prerequisites: Go 1.25.7, the locked prototype toolchain. Go commands need the workspace temp and build caches because the /tmp tmpfs is only 512 MB:
 
 ```sh
 cd chain
@@ -91,13 +33,17 @@ make vet     # go vet ./...
 make test    # go test -count=1 ./... (90 tests, 0 failures)
 ```
 
-Do NOT edit `chain/go.mod` or `chain/go.sum`: the dependency matrix
-is LOCKED (Cosmos SDK v0.53.6 required with Gaia's replace to
-v0.53.4, CometBFT v0.38.23, wasmd v0.60.9, wasmvm/v2 v2.3.5,
-ibc-go/v10 v10.7.0). No single dependency may be upgraded in
-isolation.
+Do NOT edit `chain/go.mod` or `chain/go.sum`: the dependency matrix is LOCKED (Cosmos SDK v0.53.6 required with Gaia's replace to v0.53.4, CometBFT v0.38.23, wasmd v0.60.9, wasmvm/v2 v2.3.5, ibc-go/v10 v10.7.0). No single dependency may be upgraded in isolation.
 
-## Run: 3-validator localnet
+## Run: 3-validator local development network
+
+```sh
+./demo.sh
+```
+
+The demo starts 3 validators, waits for the first epoch boundary and shows the hook minting into the rewards pool, transfers 123,456 uogo from alice to bob (fee 100), verifies the same balances from all 3 nodes, and runs the halt-and-resume test. It stops the nodes when it finishes, so it is safe to re-run. Expected outcome: VERIFY OK, supply 1,000,001,900 after 2 epochs (1,900 issued), alice 599,876,444, bob 400,123,456.
+
+Manual localnet control:
 
 ```sh
 cd chain
@@ -109,108 +55,36 @@ cd chain
 ./scripts/localnet.sh clean    # stop and delete localnet data
 ```
 
-The localnet uses TEST-ONLY parameters: max supply 1,000,010,000
-uogo, genesis alice 600,000,000 and bob 400,000,000, schedule
-reducing-per-period (4 periods, initial 1000, reduction 9/10, total
-scheduled 3439), epoch duration 20 seconds. The production max
-supply, schedule, and epoch duration are all TBD and have no
-defaults anywhere.
+The localnet uses TEST-ONLY parameters: max supply 1,000,010,000 uogo, genesis alice 600,000,000 and bob 400,000,000, schedule reducing-per-period (4 periods, initial 1000, reduction 9/10, total scheduled 3439), epoch duration 20 seconds. The production max supply, schedule, and epoch duration are all TBD and have no defaults anywhere.
 
-Manual equivalent (same values as the script):
+## Run: 4-validator fault-tolerance proof of concept
 
 ```sh
-./ogod init --home ./localnet-data/val1 --max-supply 1000010000 \
-  --schedule-start 1 --schedule-period-length 100 --schedule-periods 4 \
-  --schedule-initial-per-period 1000 --schedule-reduction 9/10 \
-  --epoch-duration-seconds 20 --epoch-identifier monetary
-# ... init val2 and val3 the same way, add keys and genesis accounts
-# to val1, set the shared validator set, copy genesis to val2/val3 ...
-./ogod start --home ./localnet-data/val1 --moniker val1 \
-  --rpc-laddr tcp://127.0.0.1:26657 --p2p-laddr tcp://127.0.0.1:26656 \
-  --persistent-peers <id2@127.0.0.1:26666,id3@127.0.0.1:26676>
+cd poc-4validator
+./run-poc.sh
 ```
 
-## Demo
+Four validators, chain-id `ogo-poc-4val-1`. Expected outcome: S5 liveness demonstrated (blocks continue with val4 down, val4 restarts and catches up), VERIFY OK with identical app hash on all four nodes. See `poc-4validator/README.md`, `poc-4validator/RUNBOOK.md`, and `poc-4validator/ogo-network-poc-4validator-report.md`.
 
-```sh
-./demo.sh
-```
+## Validator counts, kept distinct
 
-The demo starts 3 validators, waits for the first epoch boundary
-and shows the hook minting into the rewards pool, transfers
-123,456 uogo from alice to bob (fee 100, broadcast time measured),
-verifies the same balances from all 3 nodes, runs the
-halt-and-resume test, and runs the batching demo binary
-(`chain/batchdemo`) if it is present (another agent builds it; the
-demo only calls it). It stops the nodes when it finishes, so it is
-safe to re-run.
+- 3 validators: the decided local prototype in this repository.
+- 4 validators: the minimum operational set (smallest set tolerating one faulty validator) and the separate fault-tolerance proof of concept.
+- 50 or more validators: the proposed decentralization target for a public network, NOT an approved launch parameter.
 
-## Test
-
-```sh
-cd chain
-make test
-```
-
-90 tests, 0 failures: 54 Milestone B tests (genesis, schedule,
-ledger, IBC, bypass), 13 new Milestone 2 epoch tests (8 timer and
-mint tests in `x/ogocoin/epochs_test.go`, 5 wired-app tests in
-`app/app_epochs_test.go`, including the hook-fires test), and 23
-tests from parallel Milestone 3/4/5 work by other agents in the
-same tree (batching, issuance models, monetary engine, treasury).
-The Milestone 2 claim is the 13 epoch tests plus the live localnet
-evidence below; the other 23 are not this milestone's work.
-
-The critical test is `TestEpochHookFiresInWiredApp`: it advances
-the wired application past epoch boundaries and asserts issuance
-minted (rewards pool 1000 after epoch 1, 1900 after epoch 2) and
-epoch events emitted. It exists because of the depinject
-hook-registration bug (SDK issues #24770, #25425): a compile check
-is not sufficient. `TestEpochHaltCatchUpInWiredApp` proves missed
-epochs tick one per block in order with no lump mint and no double
-mint. `TestAppRestartRestoresHeightAndEpochs` proves a restart does
-not replay blocks or double-mint.
+With 3 validators the network tolerates zero faulty validators: stopping one leaves 2 of 3 (exactly two thirds, not more), so there is no quorum and block production halts. That halt is expected BFT behaviour for this count, not a failure.
 
 ## What works, what does not (honest status)
 
-Implemented and executed successfully on the live 3-validator
-localnet: block production and consensus on the same ledger (same
-balances, same supply, same app hash at the same height on all 3
-nodes); epoch execution through the monetary hook (live: 2 epochs,
-1900 uogo issued, supply 1,000,001,900); transfers reconciled on
-all 3 nodes (alice 599,876,444, bob 400,123,456 after a 123,456
-transfer with a 100 fee); halt-and-resume after a validator stop;
-full restart with no replay and no double mint.
+Implemented and executed on the live 3-validator localnet: block production and consensus on the same ledger (same balances, same supply, same app hash at the same height on all 3 nodes); epoch execution through the monetary hook (live: 2 epochs, 1900 uogo issued); transfers reconciled on all 3 nodes; halt-and-resume after a validator stop; full restart with no replay and no double mint.
 
-Tested under failure: duplicate epoch claim fails with
-`ErrDoubleIssuance` and changes nothing; halt catch-up ticks one
-epoch per block in order; a failed hook does not halt the chain and
-is recorded; restart restores height and epoch state.
+Not implemented: real SDK x/epochs wiring (the epoch timer is a mirror, see `chain/EPOCHS_GAP.md`); signature-verified transactions (JSON transactions, not signature-checked); the wasm VM; live IBC relaying; staking, governance, and distribution keepers (pinned and compiled only); x/treasury and x/rewards (planned, see `chain/MODULE_BOUNDARIES.md`); gas metering (flat fee per transaction). Framework selection is NOT closed: Cosmos SDK plus CometBFT is a candidate, pending a genuine Cosmovisor upgrade and state migration (M2), the 24-hour continuous run (P1), and the remaining S5 and O1 work.
 
-Not implemented: real SDK x/epochs wiring (mirror instead, see
-`chain/EPOCHS_GAP.md`); the hybrid issuance model through the app's
-epoch path (the hybrid and tapered-hybrid models now exist as code
-in `x/ogocoin/models.go`, parallel Milestone 3 work by another
-agent, selectable through the genesis `issuance_model` field, but
-the app's epoch hook still mints the legacy geometric schedule
-only, and the `init` CLI has no flags to express a hybrid genesis,
-so a hybrid schedule cannot be produced or executed by this
-prototype yet; the seam is named in `chain/EPOCHS_GAP.md`);
-signature-verified transactions (JSON transactions, not
-signature-checked); the wasm VM; live IBC relaying; staking,
-governance, and distribution keepers (pinned-compiled only);
-x/treasury and x/rewards (planned, see
-`chain/MODULE_BOUNDARIES.md`); gas metering (flat fee per
-transaction; CheckTx reports a hardcoded GasWanted of 1000).
+## Provenance and publication notes
 
-## Known limitations
-
-- Epoch state is not covered by the app hash in the mirror (the
-  hash covers the ledger only). In the real x/epochs module the
-  epoch info is store state and is covered. See `EPOCHS_GAP.md`.
-- A node killed mid-block (after the app persists state but before
-  CometBFT marks the block committed) can restart with its app
-  height one ahead of its block store. Clean SIGTERM stops do not
-  hit this; it is a crash-consistency window, not a routine path.
-- Keys under `<home>/keys` are plaintext, LOCALNET ONLY. Never use
-  for real value.
+- The prototype was built in local staging and committed there as `b29f830` ("OGO Network local prototype, Phase 2 Milestones 1-5", 2026-11-06). That commit is preserved as the first commit of this repository; the staging history is retained locally.
+- This repository was created 2026-11-06 as public `benross-lab/OGO-Network` by Benross's explicit authorization ("Ok create the github.. OGO Network", "And push it all", scope confirmed as OGO-Network only). Only the authorized scope was pushed: the prototype chain, the four-validator PoC as reference, and the finished network documentation.
+- The prototype and PoC reports in this repository are records of the 2026-11-06 local runs. Their "local staging only" status lines describe those runs, not the current publication state.
+- Two discrepancies flagged in the first monthly exchange readiness report were resolved by recomputation before publication: hybrid dust is 22 uogo (not 18), and the low-fee R-F binding delta is 0 units (not 4). See `docs/discrepancy-resolutions-2026-11-06.md`. The exchange readiness report itself is a published first edition and was not silently rewritten; its next monthly edition should pick up the resolutions.
+- One pre-existing em dash in a code comment in `chain/x/ogocoin/bypass.go` (and the PoC copy) was replaced with a colon in the published copy to satisfy the OGO no-em-dash rule. The change is comment-only and does not affect behaviour; the staging prototype is unchanged.
+- No em dashes are used in any file in this repository, per the OGO copy rule.
