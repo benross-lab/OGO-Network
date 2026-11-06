@@ -1,0 +1,49 @@
+name: Go CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: go-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.module }} / Go 1.25.7
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        module:
+          - chain
+          - poc-4validator/chain
+    defaults:
+      run:
+        working-directory: ${{ matrix.module }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.7'
+          cache: true
+          cache-dependency-path: |
+            chain/go.sum
+            poc-4validator/chain/go.sum
+
+      - name: Verify module checksums
+        run: go mod verify
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: go test -count=1 ./...
