@@ -1,0 +1,192 @@
+=== RUN   TestEpochHookFiresInWiredApp
+--- PASS: TestEpochHookFiresInWiredApp (0.01s)
+=== RUN   TestEpochHaltCatchUpInWiredApp
+--- PASS: TestEpochHaltCatchUpInWiredApp (0.00s)
+=== RUN   TestEpochsQueryPath
+--- PASS: TestEpochsQueryPath (0.00s)
+=== RUN   TestEpochDisabledFallsBackToBlockSchedule
+--- PASS: TestEpochDisabledFallsBackToBlockSchedule (0.00s)
+=== RUN   TestAppRestartRestoresHeightAndEpochs
+--- PASS: TestAppRestartRestoresHeightAndEpochs (0.00s)
+PASS
+ok  	github.com/benross-lab/ogo-network/app	0.190s
+?   	github.com/benross-lab/ogo-network/batchdemo	[no test files]
+?   	github.com/benross-lab/ogo-network/cmd/ogod	[no test files]
+=== RUN   TestBatchSendPreservesSupplyAndChargesOneFee
+--- PASS: TestBatchSendPreservesSupplyAndChargesOneFee (0.00s)
+=== RUN   TestBatchSendAtomicOnFailure
+--- PASS: TestBatchSendAtomicOnFailure (0.00s)
+=== RUN   TestMeasureBatchHundredPayments
+--- PASS: TestMeasureBatchHundredPayments (0.00s)
+=== RUN   TestBypassModuleAccountMint
+--- PASS: TestBypassModuleAccountMint (0.00s)
+=== RUN   TestBypassModuleAccountBurnToMint
+--- PASS: TestBypassModuleAccountBurnToMint (0.00s)
+=== RUN   TestBypassModuleAccountOverspend
+--- PASS: TestBypassModuleAccountOverspend (0.00s)
+=== RUN   TestBypassGovChangeMaxSupply
+--- PASS: TestBypassGovChangeMaxSupply (0.00s)
+=== RUN   TestBypassGovEnableMinting
+--- PASS: TestBypassGovEnableMinting (0.00s)
+=== RUN   TestBypassGovAddMintPath
+--- PASS: TestBypassGovAddMintPath (0.00s)
+=== RUN   TestBypassGovCombinedAttack
+--- PASS: TestBypassGovCombinedAttack (0.00s)
+=== RUN   TestGovNonMonetaryUpgradeAllowed
+--- PASS: TestGovNonMonetaryUpgradeAllowed (0.00s)
+=== RUN   TestBypassWasmMint
+--- PASS: TestBypassWasmMint (0.00s)
+=== RUN   TestBypassWasmForbiddenMethods
+--- PASS: TestBypassWasmForbiddenMethods (0.00s)
+=== RUN   TestWasmBindingSurfaceHasNoMint
+--- PASS: TestWasmBindingSurfaceHasNoMint (0.00s)
+=== RUN   TestBypassWasmUnknownMethod
+--- PASS: TestBypassWasmUnknownMethod (0.00s)
+=== RUN   TestBypassWasmSendPreservesSupply
+--- PASS: TestBypassWasmSendPreservesSupply (0.00s)
+=== RUN   TestBypassGovChangeSchedule
+--- PASS: TestBypassGovChangeSchedule (0.00s)
+=== RUN   TestBypassFounderMint
+--- PASS: TestBypassFounderMint (0.00s)
+=== RUN   TestBypassOffScheduleMint
+--- PASS: TestBypassOffScheduleMint (0.00s)
+=== RUN   TestBypassWasmScheduleChange
+--- PASS: TestBypassWasmScheduleChange (0.00s)
+=== RUN   TestEpochTimerFirstEpochStartsAtOne
+--- PASS: TestEpochTimerFirstEpochStartsAtOne (0.00s)
+=== RUN   TestEpochTimerGridAnchoredAndOnePerBlock
+--- PASS: TestEpochTimerGridAnchoredAndOnePerBlock (0.00s)
+=== RUN   TestEpochTimerHaltCatchUpOnePerBlock
+--- PASS: TestEpochTimerHaltCatchUpOnePerBlock (0.00s)
+=== RUN   TestEpochTimerHookErrorDoesNotHaltEpoch
+--- PASS: TestEpochTimerHookErrorDoesNotHaltEpoch (0.00s)
+=== RUN   TestMintScheduledForEpochExactOnce
+--- PASS: TestMintScheduledForEpochExactOnce (0.00s)
+=== RUN   TestMintScheduledForEpochSharesSetWithBlockPath
+--- PASS: TestMintScheduledForEpochSharesSetWithBlockPath (0.00s)
+=== RUN   TestMonetaryEpochHookFiltersIdentifier
+--- PASS: TestMonetaryEpochHookFiltersIdentifier (0.00s)
+=== RUN   TestEpochConfigValidate
+--- PASS: TestEpochConfigValidate (0.00s)
+=== RUN   TestValidateGenesisAcceptsExactMax
+--- PASS: TestValidateGenesisAcceptsExactMax (0.00s)
+=== RUN   TestValidateGenesisAcceptsBelowMax
+--- PASS: TestValidateGenesisAcceptsBelowMax (0.00s)
+=== RUN   TestValidateGenesisRejectsMissingMax
+    genesis_test.go:77: missing max correctly rejected: ogocoin: max_supply is mandatory in genesis and was not provided (no default exists)
+--- PASS: TestValidateGenesisRejectsMissingMax (0.00s)
+=== RUN   TestValidateGenesisRejectsZeroAndNegativeMax
+--- PASS: TestValidateGenesisRejectsZeroAndNegativeMax (0.00s)
+=== RUN   TestValidateGenesisRejectsSupplyOverMax
+--- PASS: TestValidateGenesisRejectsSupplyOverMax (0.00s)
+=== RUN   TestValidateGenesisRejectsScheduleOverMax
+--- PASS: TestValidateGenesisRejectsScheduleOverMax (0.00s)
+=== RUN   TestValidateGenesisRejectsMissingSchedule
+--- PASS: TestValidateGenesisRejectsMissingSchedule (0.00s)
+=== RUN   TestValidateGenesisRejectsInvalidSchedule
+--- PASS: TestValidateGenesisRejectsInvalidSchedule (0.00s)
+=== RUN   TestValidateGenesisRejectsWrongDenom
+--- PASS: TestValidateGenesisRejectsWrongDenom (0.00s)
+=== RUN   TestValidateGenesisRejectsNegativeAllocation
+--- PASS: TestValidateGenesisRejectsNegativeAllocation (0.00s)
+=== RUN   TestValidateGenesisRejectsMintingEnabled
+--- PASS: TestValidateGenesisRejectsMintingEnabled (0.00s)
+=== RUN   TestValidateGenesisRejectsCapNotEnforced
+--- PASS: TestValidateGenesisRejectsCapNotEnforced (0.00s)
+=== RUN   TestValidateGenesisRejectsDuplicateAddress
+--- PASS: TestValidateGenesisRejectsDuplicateAddress (0.00s)
+=== RUN   TestValidateGenesisRejectsFounderAllocation
+--- PASS: TestValidateGenesisRejectsFounderAllocation (0.00s)
+=== RUN   TestValidateGenesisRejectsMissingPurpose
+--- PASS: TestValidateGenesisRejectsMissingPurpose (0.00s)
+=== RUN   TestNoDefaultMaxSupply
+--- PASS: TestNoDefaultMaxSupply (0.00s)
+=== RUN   TestIBCEscrowDoesNotChangeLocalSupply
+--- PASS: TestIBCEscrowDoesNotChangeLocalSupply (0.00s)
+=== RUN   TestIBCVoucherIsNotNewSupply
+--- PASS: TestIBCVoucherIsNotNewSupply (0.00s)
+=== RUN   TestIBCVoucherCannotExceedEscrow
+--- PASS: TestIBCVoucherCannotExceedEscrow (0.00s)
+=== RUN   TestIBCReleaseReturnsEscrow
+--- PASS: TestIBCReleaseReturnsEscrow (0.00s)
+=== RUN   TestIBCReleaseCannotExceedVouchers
+--- PASS: TestIBCReleaseCannotExceedVouchers (0.00s)
+=== RUN   TestIBCInboundCappedByMax
+--- PASS: TestIBCInboundCappedByMax (0.00s)
+=== RUN   TestDiscretionaryMintProhibited
+--- PASS: TestDiscretionaryMintProhibited (0.00s)
+=== RUN   TestTransferPreservesSupply
+--- PASS: TestTransferPreservesSupply (0.00s)
+=== RUN   TestTransferInsufficientFailsAndChangesNothing
+--- PASS: TestTransferInsufficientFailsAndChangesNothing (0.00s)
+=== RUN   TestBurnIsOneWay
+--- PASS: TestBurnIsOneWay (0.00s)
+=== RUN   TestFeesDoNotMint
+--- PASS: TestFeesDoNotMint (0.00s)
+=== RUN   TestHeadroomOnlyViaSchedule
+--- PASS: TestHeadroomOnlyViaSchedule (0.00s)
+=== RUN   TestRandomTransfersNeverExceedMax
+--- PASS: TestRandomTransfersNeverExceedMax (0.01s)
+=== RUN   TestRandomBurnsNeverCreateSupply
+--- PASS: TestRandomBurnsNeverCreateSupply (0.00s)
+=== RUN   TestGeometricScheduleHandComputed
+--- PASS: TestGeometricScheduleHandComputed (0.00s)
+=== RUN   TestGeometricScheduleSpecResearchParameters
+--- PASS: TestGeometricScheduleSpecResearchParameters (0.02s)
+=== RUN   TestGeometricVsLegacyStepwiseDivergence
+--- PASS: TestGeometricVsLegacyStepwiseDivergence (0.00s)
+=== RUN   TestHybridScheduleHandComputed
+--- PASS: TestHybridScheduleHandComputed (0.00s)
+=== RUN   TestHybridScheduleSpecResearchParameters
+--- PASS: TestHybridScheduleSpecResearchParameters (0.00s)
+=== RUN   TestTaperedHybridScheduleHandComputed
+--- PASS: TestTaperedHybridScheduleHandComputed (0.00s)
+=== RUN   TestTaperedHybridSpecResearchParametersMeasured
+--- PASS: TestTaperedHybridSpecResearchParametersMeasured (0.04s)
+=== RUN   TestScheduleValidationRejectsBadModels
+--- PASS: TestScheduleValidationRejectsBadModels (0.00s)
+=== RUN   TestGenesisModelSelection
+--- PASS: TestGenesisModelSelection (0.00s)
+=== RUN   TestGenesisExactMaxSupply
+--- PASS: TestGenesisExactMaxSupply (0.00s)
+=== RUN   TestDuplicateIssuanceSameBlockAndLaterBlock
+--- PASS: TestDuplicateIssuanceSameBlockAndLaterBlock (0.00s)
+=== RUN   TestHaltRecoveryOneEpochPerBlock
+--- PASS: TestHaltRecoveryOneEpochPerBlock (0.00s)
+=== RUN   TestBothModelsEndToEnd
+=== RUN   TestBothModelsEndToEnd/geometric
+=== RUN   TestBothModelsEndToEnd/hybrid
+--- PASS: TestBothModelsEndToEnd (0.00s)
+    --- PASS: TestBothModelsEndToEnd/geometric (0.00s)
+    --- PASS: TestBothModelsEndToEnd/hybrid (0.00s)
+=== RUN   TestSupplyInvariantsLedgerLevel
+--- PASS: TestSupplyInvariantsLedgerLevel (0.00s)
+=== RUN   TestSplitConserves
+--- PASS: TestSplitConserves (0.00s)
+=== RUN   TestScheduleAmountDecreases
+--- PASS: TestScheduleAmountDecreases (0.00s)
+=== RUN   TestScheduleTotalIssuance
+--- PASS: TestScheduleTotalIssuance (0.00s)
+=== RUN   TestSchedulePeriodForHeight
+--- PASS: TestSchedulePeriodForHeight (0.00s)
+=== RUN   TestScheduledIssuanceExactAmountOncePerPeriod
+--- PASS: TestScheduledIssuanceExactAmountOncePerPeriod (0.00s)
+=== RUN   TestScheduledIssuanceBeforeStartFails
+--- PASS: TestScheduledIssuanceBeforeStartFails (0.00s)
+=== RUN   TestScheduledIssuanceAfterEndFailsForever
+--- PASS: TestScheduledIssuanceAfterEndFailsForever (0.00s)
+=== RUN   TestScheduledIssuanceNeverExceedsCap
+--- PASS: TestScheduledIssuanceNeverExceedsCap (0.00s)
+=== RUN   TestTreasuryTrailingAverage
+--- PASS: TestTreasuryTrailingAverage (0.00s)
+=== RUN   TestTreasurySpendFormula
+--- PASS: TestTreasurySpendFormula (0.00s)
+=== RUN   TestTreasuryLowInflowBinding
+    treasury_test.go:116: low-inflow binding: D=1500 spent 1900, D=2500 spent 1900, shortfall at D=1500 is 28100, balance 10100
+--- PASS: TestTreasuryLowInflowBinding (0.00s)
+=== RUN   TestTreasuryModerateInflowPaysDesiredInFull
+--- PASS: TestTreasuryModerateInflowPaysDesiredInFull (0.00s)
+=== RUN   TestTreasuryValidationRejectsBadParams
+--- PASS: TestTreasuryValidationRejectsBadParams (0.00s)
+PASS
+ok  	github.com/benross-lab/ogo-network/x/ogocoin	0.085s

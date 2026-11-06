@@ -1,0 +1,7 @@
+# Build artifacts
+chain/ogod
+chain/batchdemo-bin
+# Localnet runtime data (includes private validator keys, never commit)
+chain/localnet-data/
+# Go build cache
+.go-build-cache/

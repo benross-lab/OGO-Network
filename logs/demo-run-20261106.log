@@ -1,0 +1,152 @@
+
+=== OGO Network prototype demo (Milestones 1-2), all values TEST-ONLY ===
+Three validators, one shared genesis, epoch mode on (20s epochs).
+Chain: ogo-local-1. Denom: uogo (proposed, 6 decimals).
+
+=== Step 1: build and start 3 validators ===
+building ogod...
+built /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-prototype/chain/ogod
+initializing 3-validator localnet in /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-prototype/chain/localnet-data (TEST-ONLY values)
+  init val1
+  init val2
+  init val3
+  alice: ogo146lewy4sjwa3gkxagyy7guc90p7pm03spxlhe5
+  bob:   ogo1xdseeap4rk569w2j9fdpfhv0440knherrwck94
+added genesis account ogo146lewy4sjwa3gkxagyy7guc90p7pm03spxlhe5: 600000000 uogo
+genesis total supply now: 600000000 / max 1000010000
+added genesis account ogo1xdseeap4rk569w2j9fdpfhv0440knherrwck94: 400000000 uogo
+genesis total supply now: 1000000000 / max 1000010000
+genesis validators set to 3:
+  50EB15EA40180BC0223F114DC0FB7063EAD05834 power=10 name=val1
+  9604C7B161E7917A835022F45B9441B2AE700D75 power=10 name=val2
+  BC00C8DA28AF6CDD20F27A86039B350B285CEEB2 power=10 name=val3
+genesis VALID: max_supply=1000010000 total=1000000000 denom=uogo
+localnet initialized: 3 validators, epoch duration 20s (TEST-ONLY)
+genesis accounts: alice 600000000, bob 400000000 (TEST-ONLY)
+starting 3 validators...
+  val1 started (pid 22087, rpc 127.0.0.1:26657, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-prototype/chain/localnet-data/val1/node.log)
+  val2 started (pid 22096, rpc 127.0.0.1:26667, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-prototype/chain/localnet-data/val2/node.log)
+  val3 started (pid 22103, rpc 127.0.0.1:26677, log /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-prototype/chain/localnet-data/val3/node.log)
+waiting for all 3 nodes to reach height 5...
+all 3 nodes producing blocks
+verifying the same ledger state on all 3 nodes...
+comparing at height 5
+val1: app_hash=3C47495EDFF4AEC10B466B1DF77BFE1DE65BD0F215123C6B18659662C7BE648B
+val2: app_hash=3C47495EDFF4AEC10B466B1DF77BFE1DE65BD0F215123C6B18659662C7BE648B
+val3: app_hash=3C47495EDFF4AEC10B466B1DF77BFE1DE65BD0F215123C6B18659662C7BE648B
+val1: alice=600000000 bob=400000000 supply=1000000000 issued=0
+val2: alice=600000000 bob=400000000 supply=1000000000 issued=0
+val3: alice=600000000 bob=400000000 supply=1000000000 issued=0
+VERIFY OK: all 3 nodes agree on balances, supply, issuance, and app hash at height 5
+alice: ogo146lewy4sjwa3gkxagyy7guc90p7pm03spxlhe5
+bob:   ogo1xdseeap4rk569w2j9fdpfhv0440knherrwck94
+
+=== Step 2: wait for the first epoch boundary (epoch issuance executing) ===
+Epoch duration is 20s (TEST-ONLY). Polling until the hook mints...
+Epoch state on val1:
+{
+  "current_epoch": "2",
+  "current_epoch_start_height": "12",
+  "current_epoch_start_time": "2026-11-06T15:36:41Z",
+  "duration_seconds": "20",
+  "enabled": "true",
+  "epoch_counting_started": "true",
+  "hook_fire_count": "1",
+  "identifier": "monetary",
+  "implementation": "epoch-timer-mirror (not SDK x/epochs); see EPOCHS_GAP.md",
+  "issued_by_period": "0:1000",
+  "last_hook_error": "",
+  "start_time": "2026-11-06T15:36:21Z",
+  "total_issued": "1000"
+}
+Rewards pool balance (the mint recipient):
+{
+  "address": "ogo1rewardspool",
+  "balance": "1000",
+  "denom": "uogo"
+}
+Supply:
+{
+  "burned": "0",
+  "denom": "uogo",
+  "headroom": "9000",
+  "max_supply": "1000010000",
+  "total_supply": "1000001000"
+}
+
+=== Step 3: transfer 123456 uogo from alice to bob (fee 100 uogo, TEST-ONLY) ===
+Measuring broadcast time (fee is flat per transaction in this scaffold; there is no gas metering yet).
+tx hash: D945F7511FA4FE5D520251A24F6F2C133268FD53CE22F19F386DE14A5BF8A117 code: 0 log: sent 123456 uogo from ogo146lewy4sjwa3gkxagyy7guc90p7pm03spxlhe5 to ogo1xdseeap4rk569w2j9fdpfhv0440knherrwck94 (fee 100)
+broadcast took 122 ms
+Waiting 3s for the transfer to commit...
+
+=== Step 4: same balances from all three nodes ===
+--- val1 (rpc 127.0.0.1:26657) ---
+alice: 599876444
+bob:   400123456
+--- val2 (rpc 127.0.0.1:26667) ---
+alice: 599876444
+bob:   400123456
+--- val3 (rpc 127.0.0.1:26677) ---
+alice: 599876444
+bob:   400123456
+Expected: alice 599876444 (600000000 - 123456 - 100 fee), bob 400123456.
+
+=== Step 5: verify the same ledger state on all three nodes ===
+verifying the same ledger state on all 3 nodes...
+comparing at height 15
+val1: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val2: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val3: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val1: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+val2: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+val3: alice=599876444 bob=400123456 supply=1000001000 issued=1000
+VERIFY OK: all 3 nodes agree on balances, supply, issuance, and app hash at height 15
+
+=== Step 6: halt-and-resume (one validator stops, chain halts, restarts, resumes) ===
+halt-and-resume test: stopping val3...
+  stopped val3
+val3 stopped at val1 height 16; waiting 15s: with 3 validators the chain must HALT...
+HALT OK: height stayed at 16 with val3 down (no quorum with 2 of 3, as expected for 3 validators)
+restarting val3 and waiting for block production to resume...
+  val3 restarted (pid 22830)
+RESUME OK: height advanced past 16 after val3 restarted
+val3 caught up to height 18
+verifying the same ledger state on all 3 nodes...
+comparing at height 18
+val1: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val2: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val3: app_hash=CB052CF4CF64DEFB32A823095C52E862213C81090AE1E6B1C5152F3730638F85
+val1: alice=599876444 bob=400123456 supply=1000001900 issued=1900
+val2: alice=599876444 bob=400123456 supply=1000001900 issued=1900
+val3: alice=599876444 bob=400123456 supply=1000001900 issued=1900
+VERIFY OK: all 3 nodes agree on balances, supply, issuance, and app hash at height 18
+
+=== Step 7: agent batching demo (separate agent builds it; this script only calls it) ===
+OGO Network batching demonstration (Milestone 4)
+Measured from the prototype ledger, not from the spec table.
+All parameters TEST-ONLY. Fee model: flat fee per transaction,
+no gas metering in this scaffold (see BATCHING_RESULTS.md).
+Payments: 100 x 1000 uogo (0.001 OGO each), fee 100 uogo per transaction
+
+Unbatched (100 transactions, one fee each)
+  transactions: 100
+  total fee: 10000 uogo
+  fee per payment: 100 uogo
+  fee as share of payment: 10.00 percent (1000 basis points)
+Batched (1 transaction, 100 payments, one fee)
+  transactions: 1
+  total fee: 100 uogo
+  fee per payment: 1 uogo
+  fee as share of payment: 0.10 percent (10 basis points)
+
+Fee saving from batching: 9900 uogo (99% of the unbatched fee)
+
+=== Demo complete ===
+Demonstrated: 3-validator consensus on the same ledger, a wallet
+transfer reconciled on all 3 nodes, epoch issuance executing through
+the monetary hook, and halt-and-resume after a validator stop.
+All values TEST-ONLY. No deployment, no token issuance, no spending.
+The network ran independently of the OGO application throughout.
+
+stopping the localnet...
