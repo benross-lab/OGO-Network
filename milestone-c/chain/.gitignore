@@ -1,0 +1,5 @@
+/ogod
+/batchdemo-bin
+/localnet-data/
+*.log
+/build/

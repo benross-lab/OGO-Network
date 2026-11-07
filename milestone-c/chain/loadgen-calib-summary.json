@@ -1,0 +1,12 @@
+{
+  "accepted": 2934,
+  "achieved_tps": 48.89912882208574,
+  "duration_s": 60.001068949,
+  "failed": 23,
+  "finality_max": 1.917842252,
+  "finality_p50": 0.017532204,
+  "finality_p95": 1.078664062,
+  "sampled": 200,
+  "sampled_ok": 200,
+  "submitted": 2957
+}

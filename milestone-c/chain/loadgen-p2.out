@@ -1,0 +1,19 @@
+master ogo1vrqpsdj67z992fd98424ww6ty0aphmvxwlz5en acc=12 seq=1
+fund tx C39CB0F38005D512AE6E97F5548021981A2B0C5FC873E9B32DAC587AFE889838 (senders=100, gas=5000000, fee=5000)
+starting load: senders=100 target_tps=200.0 duration=10m0s interval/worker=500ms
+load done: submitted=45858 accepted=45857 failed=1 elapsed=10m0.59473932s achieved_tps=76.4
+{
+  "accepted": 45857,
+  "achieved_tps": 76.35265012797115,
+  "duration_s": 600.59473932,
+  "failed": 1,
+  "finality_max": 28.398528928,
+  "finality_p50": 2.7121540250000002,
+  "finality_p95": 9.995861324,
+  "height_lag_max": 14,
+  "height_lag_p50": 2,
+  "height_lag_p95": 8,
+  "sampled": 180,
+  "sampled_ok": 180,
+  "submitted": 45858
+}

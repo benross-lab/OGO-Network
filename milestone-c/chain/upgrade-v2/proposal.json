@@ -1,0 +1,17 @@
+{
+  "messages": [
+    {
+      "@type": "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
+      "authority": "ogo10d07y265gmmuvt4z0w9aw880jnsr700jvdnngz",
+      "plan": {
+        "name": "v2",
+        "height": "859",
+        "info": "Milestone C v2: non-monetary store migration adding the monetary-meta upgrade marker (TEST-ONLY local staging)"
+      }
+    }
+  ],
+  "metadata": "ipfs://test-only-milestone-c-v2",
+  "deposit": "1000000uogo",
+  "title": "Milestone C v2 upgrade (TEST-ONLY)",
+  "summary": "Non-monetary upgrade: adds the monetary-meta store with the v2 upgrade marker. No monetary parameter, schedule, or balance changes."
+}

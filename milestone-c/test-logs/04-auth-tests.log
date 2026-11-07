@@ -1,0 +1,105 @@
+COMMAND: go test -count=1 -v ./app/ -run TestAuth
+WORKDIR: /home/hatch/workspace/goals/ogo-ai-builder-and-network/files/ogo-network-milestone-c-handoff-gpt/chain
+GO: go version go1.25.7 linux/amd64
+STARTED: 2026-11-07T13:54:35Z
+---
+=== RUN   TestAuthForgedSenderRejected
+    auth_test.go:311: forged sender (CheckTx): rejected as expected (code 8): pubKey does not match signer address ogo179qygv867wzsgzsef6py8gsyljh45dy9nterk2 with signer index: 0: invalid pubkey
+    auth_test.go:318: forged sender (FinalizeBlock): rejected as expected (code 8): pubKey does not match signer address ogo179qygv867wzsgzsef6py8gsyljh45dy9nterk2 with signer index: 0: invalid pubkey
+--- PASS: TestAuthForgedSenderRejected (0.30s)
+=== RUN   TestAuthUnsignedRejected
+    auth_test.go:331: unsigned tx (CheckTx): rejected as expected (code 15): no signatures supplied
+    auth_test.go:338: unsigned tx (FinalizeBlock): rejected as expected (code 15): no signatures supplied
+--- PASS: TestAuthUnsignedRejected (0.32s)
+=== RUN   TestAuthInvalidSignatureRejected
+    auth_test.go:353: tampered tx (CheckTx): rejected as expected (code 4): signature verification failed; please verify account number (0) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:360: corrupted signature (CheckTx): rejected as expected (code 4): signature verification failed; please verify account number (0) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:367: tampered tx (FinalizeBlock): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:374: corrupted signature (FinalizeBlock): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+--- PASS: TestAuthInvalidSignatureRejected (0.76s)
+=== RUN   TestAuthPubkeyMismatchRejected
+    auth_test.go:392: pubkey mismatch (CheckTx): rejected as expected (code 4): signature verification failed; please verify account number (0) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:399: pubkey mismatch (FinalizeBlock): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+--- PASS: TestAuthPubkeyMismatchRejected (0.22s)
+=== RUN   TestAuthWrongChainIDRejected
+    auth_test.go:412: wrong chain ID (CheckTx): rejected as expected (code 4): signature verification failed; please verify account number (0) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:422: wrong chain ID (FinalizeBlock): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+--- PASS: TestAuthWrongChainIDRejected (0.27s)
+=== RUN   TestAuthWrongAccountNumberRejected
+    auth_test.go:443: wrong account number (FinalizeBlock): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:455: wrong account number (CheckTx height 1): rejected as expected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:466: account number 1 at CheckTx height 0: rejected as expected (code 4): signature verification failed; please verify account number (0) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+--- PASS: TestAuthWrongAccountNumberRejected (0.31s)
+=== RUN   TestAuthReplayedSequenceRejected
+    auth_test.go:485: replayed sequence (CheckTx): rejected as expected (code 32): account sequence mismatch, expected 1, got 0: incorrect account sequence
+    auth_test.go:493: replayed sequence (FinalizeBlock): rejected as expected (code 32): account sequence mismatch, expected 1, got 0: incorrect account sequence
+--- PASS: TestAuthReplayedSequenceRejected (0.11s)
+=== RUN   TestAuthDuplicateTransactionRejected
+    auth_test.go:513: duplicate tx (CheckTx): rejected as expected (code 32): account sequence mismatch, expected 1, got 0: incorrect account sequence
+    auth_test.go:528: duplicate tx (FinalizeBlock): second copy rejected (code 32): account sequence mismatch, expected 1, got 0: incorrect account sequence
+--- PASS: TestAuthDuplicateTransactionRejected (0.22s)
+=== RUN   TestAuthValidTransactionAccepted
+--- PASS: TestAuthValidTransactionAccepted (0.46s)
+=== RUN   TestAuthInsufficientFundsRejected
+    auth_test.go:622: insufficient funds (CheckTx): admitted as expected (ante only, no message execution)
+    auth_test.go:627: insufficient funds (CheckTx repeat): rejected (code 32): account sequence mismatch, expected 1, got 0: incorrect account sequence
+    auth_test.go:644: insufficient funds (FinalizeBlock): rejected (code 5): failed to execute message; message index: 0: spendable balance 999900uogo is smaller than 2000000uogo: insufficient funds
+--- PASS: TestAuthInsufficientFundsRejected (0.22s)
+=== RUN   TestAuthInvalidFeeRejected
+    auth_test.go:680: unknown fee denom (CheckTx): rejected as expected (code 5): spendable balance 0ustake is smaller than 100ustake: insufficient funds: insufficient funds
+    auth_test.go:687: excessive fee (CheckTx): rejected as expected (code 5): spendable balance 1000000uogo is smaller than 2000000uogo: insufficient funds: insufficient funds
+    auth_test.go:694: unknown fee denom (FinalizeBlock): rejected as expected (code 5): spendable balance 0ustake is smaller than 100ustake: insufficient funds: insufficient funds
+    auth_test.go:701: excessive fee (FinalizeBlock): rejected as expected (code 5): spendable balance 1000000uogo is smaller than 2000000uogo: insufficient funds: insufficient funds
+--- PASS: TestAuthInvalidFeeRejected (0.49s)
+=== RUN   TestAuthMalformedTransactionRejected
+    auth_test.go:724: malformed (random bytes, CheckTx): rejected as expected (code 2): invalid length; proto: invalid field number: tx parse error: tx parse error
+    auth_test.go:731: malformed (random bytes, FinalizeBlock): rejected as expected (code 2): tx parse error
+    auth_test.go:724: malformed (empty bytes, CheckTx): rejected as expected (code 18): must contain at least one message: invalid request
+    auth_test.go:731: malformed (empty bytes, FinalizeBlock): rejected as expected (code 18): must contain at least one message: invalid request
+    auth_test.go:724: malformed (truncated tx, CheckTx): rejected as expected (code 2): invalid length; unexpected EOF: tx parse error: tx parse error
+    auth_test.go:731: malformed (truncated tx, FinalizeBlock): rejected as expected (code 2): tx parse error
+--- PASS: TestAuthMalformedTransactionRejected (0.91s)
+=== RUN   TestAuthZeroFeeBehaviorDocumented
+--- PASS: TestAuthZeroFeeBehaviorDocumented (0.28s)
+=== RUN   TestAuthPathsAgree
+=== RUN   TestAuthPathsAgree/valid
+=== RUN   TestAuthPathsAgree/forged_sender
+=== RUN   TestAuthPathsAgree/unsigned
+=== RUN   TestAuthPathsAgree/tampered_message
+=== RUN   TestAuthPathsAgree/corrupted_signature
+=== RUN   TestAuthPathsAgree/pubkey_mismatch
+=== RUN   TestAuthPathsAgree/wrong_chain_ID
+=== RUN   TestAuthPathsAgree/wrong_account_number
+=== RUN   TestAuthPathsAgree/insufficient_funds
+=== RUN   TestAuthPathsAgree/unknown_fee_denom
+=== RUN   TestAuthPathsAgree/excessive_fee
+=== RUN   TestAuthPathsAgree/malformed_random_bytes
+=== RUN   TestAuthPathsAgree/malformed_empty_bytes
+--- PASS: TestAuthPathsAgree (3.30s)
+    --- PASS: TestAuthPathsAgree/valid (0.21s)
+    --- PASS: TestAuthPathsAgree/forged_sender (0.28s)
+    --- PASS: TestAuthPathsAgree/unsigned (0.21s)
+    --- PASS: TestAuthPathsAgree/tampered_message (0.29s)
+    --- PASS: TestAuthPathsAgree/corrupted_signature (0.23s)
+    --- PASS: TestAuthPathsAgree/pubkey_mismatch (0.21s)
+    --- PASS: TestAuthPathsAgree/wrong_chain_ID (0.28s)
+    --- PASS: TestAuthPathsAgree/wrong_account_number (0.21s)
+    --- PASS: TestAuthPathsAgree/insufficient_funds (0.27s)
+    --- PASS: TestAuthPathsAgree/unknown_fee_denom (0.22s)
+    --- PASS: TestAuthPathsAgree/excessive_fee (0.29s)
+    --- PASS: TestAuthPathsAgree/malformed_random_bytes (0.29s)
+    --- PASS: TestAuthPathsAgree/malformed_empty_bytes (0.30s)
+=== RUN   TestAuthRejectedTxCannotAlterSupply
+    auth_test.go:978: rejected-tx CheckTx: tx 0 rejected (code 15): no signatures supplied
+    auth_test.go:978: rejected-tx CheckTx: tx 1 rejected (code 8): pubKey does not match signer address ogo179qygv867wzsgzsef6py8gsyljh45dy9nterk2 with signer index: 0: invalid pubkey
+    auth_test.go:978: rejected-tx CheckTx: tx 2 rejected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:978: rejected-tx CheckTx: tx 3 rejected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:978: rejected-tx CheckTx: tx 4 rejected (code 4): signature verification failed; please verify account number (1) and chain-id (ogo-local-1): (unable to verify single signer signature): unauthorized
+    auth_test.go:978: rejected-tx CheckTx: tx 5 rejected (code 5): spendable balance 0ustake is smaller than 100ustake: insufficient funds: insufficient funds
+    auth_test.go:978: rejected-tx CheckTx: tx 6 rejected (code 2): invalid length; proto: invalid field number: tx parse error: tx parse error
+--- PASS: TestAuthRejectedTxCannotAlterSupply (0.40s)
+PASS
+ok  	github.com/benross-lab/ogo-network/app	8.681s
+---
+EXIT_CODE: 0
+FINISHED: 2026-11-07T13:55:00Z
