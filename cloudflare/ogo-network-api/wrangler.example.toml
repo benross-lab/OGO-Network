@@ -1,0 +1,15 @@
+# Copy to wrangler.toml only in an approved isolated Cloudflare project.
+# This file intentionally has no routes, DNS, deployment, or production account IDs.
+name = "ogo-network-api"
+main = "src/index.js"
+compatibility_date = "2026-11-07"
+workers_dev = false
+
+[vars]
+# Development origin only. Set locally or through an approved secret/configuration.
+ORIGIN_BASE_URL = "http://127.0.0.1:8787"
+CORS_ORIGIN = "http://localhost:5173"
+
+# Production configuration must be approved separately. Do not add:
+# routes = ["api.ogosystems.com/*"]
+# or production origin URLs here until hosting, DNS, and security review are complete.
