@@ -2,6 +2,7 @@
 
 Status: Living register. Planning only. Decisions are recorded as they are made; nothing in this register is decided by the register itself.
 Date: 2026-11-06
+Updated: 2026-11-08 (hard maximum supply approved; see section 2)
 Companion document: `ogo-network-native-coin-architecture-implementation-plan-v1.0.md` (section 11)
 Architecture direction: CONFIRMED AND LOCKED, Option B. OGO Network launches with its own native blockchain and native OGO Coin.
 
@@ -27,7 +28,7 @@ A decision moves between categories only by an explicit action: Benross makes it
 | Fixed maximum coin supply, community governance | 2026-11-05 | Founding charter. "OGO Systems creates the initial technology. The OGO community ultimately governs the network." |
 | No OGO account needed to own, transfer, or use OGO Coin | 2026-11-05 | Usable via independent wallets, exchanges, developers, and third-party services. |
 | OGO Coins and Credits remain separate from OGO Coin; no automatic conversion | 2026-11-05 | Accounting must never be merged. |
-| Maximum supply is TBD, but is a mandatory genesis parameter with no default | 2026-11-05 | "I would not choose a number just to move development forward." Build the monetary rules first; decide the monetary quantity second. |
+| Hard maximum supply: 100,000,000,000 OGO | 2026-11-08 | APPROVED by Benross. OGO Network has an approved hard maximum supply direction of 100,000,000,000 OGO. Genesis allocation, initial circulating supply, issuance schedule, and production genesis configuration remain separate decisions. Maximum supply is not the same as initial genesis supply and is not the same as circulating supply. Genesis circulating supply G and total scheduled issuance S_actual remain undecided and must satisfy G + S_actual = 100,000,000,000 OGO. The monetary system must never permit supply to exceed this ceiling. The ceiling remains a mandatory genesis parameter with no default. Genesis configuration change and monetary protocol implementation are NOT authorized by this approval. |
 | Zero reserved founder allocation; zero reserved OGO Systems allocation; no preferential private presale | 2026-11-05 | Founders may acquire OGO later under the same publicly available conditions as everyone else. OGO Systems is the founding technology developer, not the owner of the currency. |
 | IBC transfers must preserve global supply accounting | 2026-11-05 | A native token escrowed on one chain and represented as a voucher on another must not be counted as two independent units of economic supply. |
 | Fixed-supply protections cannot be bypassed through privileged module accounts, governance upgrades, or smart-contract interfaces | 2026-11-05 | The build and test report must include actual failures, not just a successful-looking scaffold. |
@@ -50,6 +51,7 @@ A decision moves between categories only by an explicit action: Benross makes it
 | Item | Superseded by | Date |
 |---|---|---|
 | Conditional Base recommendation for the native coin (feasibility report) | Architecture direction decision (Option B, L1 native coin) | 2026-11-06 |
+| Maximum supply is TBD, but is a mandatory genesis parameter with no default (2026-11-05) | Hard maximum supply approved: 100,000,000,000 OGO (2026-11-08). The TBD part is superseded; the mandatory-genesis-parameter-with-no-default requirement is preserved by the new decision. | 2026-11-08 |
 | Zero-inflation / mint-disabled-after-genesis rule (implementation report section 3) | Monetary Constitution v0.1 (fixed max plus scheduled issuance) | 2026-11-05/06 |
 | Repo-first rule for the network (all work in benross-lab/OGO only) | Separate repositories decision | 2026-11-06 |
 | Go 1.23 as the prototype toolchain (blueprint proposal) | Go 1.25.7 locked (Milestone B authorization, actually used and verified) | 2026-11-05 |
@@ -84,7 +86,7 @@ A decision moves between categories only by an explicit action: Benross makes it
 
 | Decision | Blocks | Notes |
 |---|---|---|
-| Issuance model family: geometric or hybrid | Parameters, split, fee analysis, max supply | Geometric and hybrid remain the two candidates. Epoch-based is the legibility fallback. Halving is a reference only. |
+| Issuance model family: geometric or hybrid | Parameters, split, fee analysis | Geometric and hybrid remain the two candidates. Epoch-based is the legibility fallback. Halving is a reference only. Maximum supply ceiling approved 2026-11-08 (100,000,000,000 OGO); the model family decision now constrains G and S_actual within that ceiling. |
 | Period length D and nominal year | Issuance schedule, treasury projections, fee transition timing | A sustainability decision. Geometric ends at period 110 (9.2 years monthly, 27.5 years quarterly); hybrid ends at period 40 (3.3 years monthly, 10.0 years quarterly). |
 | Validator minimum: Definition A (4 validators) or Definition B (at least 50, Nakamoto at least 10, top 10 under 33 percent, no country or provider over 33 percent) | Validator set, fee need, decentralization claims | Definition B targets are targets, not launch requirements. A mechanism for a flat stake distribution still needs to be named. |
 | Fee policy: fee level, fee distribution, and how agent transactions are priced | Post-issuance funding, validator pay | Only the High fee scenario covers the minimum need, and only at period 38 (or 48 at standard costs). A flat fee cannot serve both security and agent viability. The fee market must not make small AI-agent payments impractical. |
@@ -109,9 +111,9 @@ A decision moves between categories only by an explicit action: Benross makes it
 
 ## 5. Parameters awaiting approval
 
-No parameter in this table is selected by these specifications. Each needs Benross's explicit approval, in the decision order in section 6.
+One parameter in this table is selected: maximum supply M (approved 2026-11-08). Each remaining parameter needs Benross's explicit approval, in the decision order in section 6.
 
-Maximum supply M (derived as G + S_actual, not chosen directly); genesis circulating supply G; issuance duration and period count N; reduction factor r; floor and base share (hybrid); initial per-period amount R0; taper factor and taper periods (hybrid candidate); validator, delegator, community, and treasury split; fee level (base fee and gas price) and fee distribution; treasury spending level D and emergency reserve floor F; minimum validator count and active set size N; governance deposit, voting period, quorum, and threshold; epoch duration D and nominal year; denom and decimals; bech32 prefix and derivation path; commission floor and change limits; unbonding period; slashing fractions and windows; chain id; self-delegation minimum.
+Maximum supply M is APPROVED as 100,000,000,000 OGO (2026-11-08). Genesis circulating supply G and total scheduled issuance S_actual remain undecided; they must satisfy G + S_actual = 100,000,000,000 OGO. The remaining parameters awaiting approval are: genesis circulating supply G; issuance duration and period count N; reduction factor r; floor and base share (hybrid); initial per-period amount R0; taper factor and taper periods (hybrid candidate); validator, delegator, community, and treasury split; fee level (base fee and gas price) and fee distribution; treasury spending level D and emergency reserve floor F; minimum validator count and active set size N; governance deposit, voting period, quorum, and threshold; epoch duration D and nominal year; denom and decimals; bech32 prefix and derivation path; commission floor and change limits; unbonding period; slashing fractions and windows; chain id; self-delegation minimum.
 
 ## 6. Items requiring external legal or security review
 
@@ -134,7 +136,7 @@ Preserved from the Decision Preparation report, with the architecture decision (
 6. Treasury spend level and rule.
 7. Post-issuance funding mechanism and fee share.
 8. Fee policy evidence.
-9. Model family (geometric or hybrid). Then parameters (reduction factor, floor, period count, initial amount). Then the split (validator, delegator, community, treasury). Then fee analysis. Then max supply as M = G + S_actual.
+9. Model family (geometric or hybrid). Then parameters (reduction factor, floor, period count, initial amount). Then the split (validator, delegator, community, treasury). Then fee analysis. Then genesis circulating supply G and total scheduled issuance S_actual, chosen so that G + S_actual = 100,000,000,000 OGO, the approved hard maximum supply (2026-11-08).
 
 ## 8. Open questions from the repository inspection
 
@@ -148,4 +150,4 @@ Preserved from the Decision Preparation report, with the architecture decision (
 
 ## 9. What these specifications do not decide
 
-These specifications do not select a monetary model, do not select any monetary parameter, do not approve a repository creation, do not approve a commit or a push, do not approve a publication or a deployment, do not approve a testnet or a mainnet, do not approve any spending, do not commission legal analysis or an audit, and do not authorise token issuance or distribution. Each of those needs a separate, explicit approval from Benross.
+These specifications select one monetary parameter: the hard maximum supply, 100,000,000,000 OGO, approved 2026-11-08. They do not select a monetary model and do not select any other monetary parameter; they do not approve a repository creation, do not approve a commit or a push, do not approve a publication or a deployment, do not approve a testnet or a mainnet, do not approve any spending, do not commission legal analysis or an audit, and do not authorise token issuance or distribution. Each of those needs a separate, explicit approval from Benross.

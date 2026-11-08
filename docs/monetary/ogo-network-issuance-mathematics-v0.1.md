@@ -1,6 +1,6 @@
 # OGO Network: Issuance Mathematics v0.1
 
-Status: Comparison for review. Not a decision. No maximum supply, no percentages, no intervals selected.
+Status: Comparison for review. Not a decision. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. All figures in this document are illustrative normalizations, not the approved parameters.
 Date: 2026-11-06
 Source: Benross approved starting the comparison (2026-11-06).
 
@@ -10,7 +10,7 @@ All four models are normalized to the same total scheduled issuance of 1,000,000
 
 ## 1. Common framework
 
-Let M be the maximum supply (TBD, mandatory genesis parameter, no default). Let G be genesis circulating supply (TBD). Let S be total scheduled issuance. The cap constraint is:
+Let M be the maximum supply (approved: 100,000,000,000 OGO, 2026-11-08; mandatory genesis parameter, no default). Let G be genesis circulating supply (TBD). Let S be total scheduled issuance. The cap constraint is:
 
 G + S <= M
 

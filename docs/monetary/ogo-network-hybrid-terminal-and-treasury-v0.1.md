@@ -1,6 +1,6 @@
 # OGO Network: Hybrid Terminal Transition and Treasury Sustainability v0.1
 
-Status: Research and design only. No monetary model has been approved. No maximum supply, no percentages, no intervals selected.
+Status: Research and design only. No monetary model has been approved. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. All figures in this document are illustrative normalizations, not the approved parameters.
 Date: 2026-11-06
 Purpose: Tighten three items in the Monetary Design Decision Report v0.1 before it is used as the basis for a monetary decision, as Benross directed: (1) issuance totals, (2) hybrid terminal behavior, (3) treasury sustainability after issuance ends. All figures are illustrative, computed with exact rational arithmetic floored to integer uogo, normalized to 1,000,000 illustrative units of total scheduled issuance unless stated otherwise. The normalization is not a proposed supply.
 
@@ -12,7 +12,7 @@ The Decision Report used a single normalized total. Integer flooring means three
 
 - S_target, the theoretical target: the analytic total from the schedule formula. For geometric decay, S_target = R0 / (1 - r). For hybrid, S_target = base * N + B0 * (1 - r^N) / (1 - r). This number exists only in real-number arithmetic. It is the design intent.
 - S_actual, the actual cumulative scheduled issuance: the integer sum of the floored per-period amounts, sum over n of floor(R_n). This is the number of coins the protocol will actually mint if the schedule runs to completion. It is always less than S_target, by the dust.
-- M, the maximum supply: M = G + S, where G is genesis circulating supply (TBD). Which S goes into M is a decision, and the two conventions differ.
+- M, the maximum supply, approved as 100,000,000,000 OGO (2026-11-08): M = G + S, where G is genesis circulating supply (TBD). Which S goes into M is a decision, and the two conventions differ; G and S must sum to the approved ceiling.
 
 Computed dust, exact rational arithmetic:
 

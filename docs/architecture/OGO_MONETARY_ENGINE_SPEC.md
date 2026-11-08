@@ -1,10 +1,11 @@
 # OGO Monetary Engine Specification
 
-Status: Technical specification. Planning only. No blockchain deployed, no token issued, no monetary parameter selected, no production change authorized.
+Status: Technical specification. Planning only. No blockchain deployed, no token issued, one monetary parameter selected (hard maximum supply, 100,000,000,000 OGO, approved 2026-11-08), no production change authorized.
 Date: 2026-11-06
+Updated: 2026-11-08 (hard maximum supply approved; see sections 2 and 3)
 Companion document: `ogo-network-native-coin-architecture-implementation-plan-v1.0.md` (section 4)
 Architecture direction: CONFIRMED AND LOCKED, Option B. OGO Network is an independent Layer 1 blockchain with native OGO Coin.
-No model selected. No parameter selected. Both models are available in the simulator.
+No model selected. One parameter selected: hard maximum supply (see sections 2 and 3). Both models are available in the simulator.
 
 ## 1. Purpose
 
@@ -16,18 +17,18 @@ This document specifies the monetary engine: the component that owns the supply 
 2. **One issuance authority.** x/monetary is the only module that can mint. There is no second mint path, no admin mint, no governance mint, no contract mint, and no founder mint.
 3. **Configuration, not code, selects the model.** Geometric and hybrid are two implementations of one issuance interface. The model is selected by a genesis parameter. Changing the model before genesis means changing a genesis value, not rewriting the engine.
 4. **Exact integer arithmetic.** No floating point in any consensus-critical monetary code. One integer-floor rounding rule. Deterministic period indexing. Independently reproducible test vectors.
-5. **Three-number accounting.** S_target (theoretical target), S_actual (actual cumulative scheduled issuance, by exact integer summation), and M (maximum supply, M = G + S_actual) are distinguished at all times. M is derived at genesis, not chosen first.
+5. **Three-number accounting.** S_target (theoretical target), S_actual (actual cumulative scheduled issuance, by exact integer summation), and M (maximum supply, M = G + S_actual) are distinguished at all times. M is approved as 100,000,000,000 OGO (2026-11-08); at genesis M is verified as G + S_actual by exact integer summation, and G and S_actual remain undecided and must sum to the approved ceiling.
 6. **Dust is left unissued.** Integer flooring leaves dust. Dust is never an alternative minting allowance, a rounding buffer, or a discretionary top-up.
 
 ## 3. Genesis parameters
 
-All of the following are genesis parameters. All are TBD. None is selected by this document. A genesis file that omits any mandatory parameter is rejected. A genesis file that contains a default for max supply is rejected: max supply has no default.
+All of the following are genesis parameters. All are TBD except max_supply, which is approved as 100,000,000,000 OGO (2026-11-08). A genesis file that omits any mandatory parameter is rejected. A genesis file that contains a default for max supply is rejected: max supply has no default; the approved ceiling must appear explicitly in genesis.
 
 ### 3.1 Mandatory parameters
 
 | Parameter | Type | Notes |
 |---|---|---|
-| `max_supply` | integer (uogo) | Mandatory, no default. Must equal G + S_actual, computed at genesis by exact integer summation. Genesis validation rejects a max supply that does not equal G + S_actual. |
+| `max_supply` | integer (uogo) | Mandatory, no default. Approved value: 100,000,000,000 OGO (Benross, 2026-11-08). Must equal G + S_actual, computed at genesis by exact integer summation; G and S_actual remain TBD and must sum to the approved ceiling. Genesis validation rejects a max supply that does not equal G + S_actual. |
 | `denom` | string | Proposed `uogo`. Not final. |
 | `decimals` | integer | Proposed 6. Not final. 1 OGO equals 1,000,000 uogo under the proposal. |
 | `genesis_supply` (G) | integer (uogo) | Genesis circulating supply. TBD. |
@@ -212,4 +213,4 @@ Governance-controlled rules (explicit permissions, voting thresholds, safeguards
 
 ## 12. What this document does not decide
 
-No model is selected. No parameter is selected. The decision order is preserved: (1) select model family, (2) schedule parameters, (3) validator, delegator, community, and treasury split, (4) fees and long-term security analysis, (5) derive max supply as M = G + S_actual. The legal analysis (securities, money transmission, tax, international distribution, exchange admission) must be commissioned in writing before genesis distribution. It is the longest-lead item and is not yet commissioned.
+No model is selected. One parameter is selected: hard maximum supply, 100,000,000,000 OGO (approved 2026-11-08). The decision order is preserved for the remaining decisions: (1) select model family, (2) schedule parameters, (3) validator, delegator, community, and treasury split, (4) fees and long-term security analysis, (5) choose G and S_actual so that G + S_actual = 100,000,000,000 OGO. The legal analysis (securities, money transmission, tax, international distribution, exchange admission) must be commissioned in writing before genesis distribution. It is the longest-lead item and is not yet commissioned.

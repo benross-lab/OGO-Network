@@ -15,7 +15,7 @@ OGO Systems remains the founding technology developer, not the owner of the curr
 
 Fixed supply. Scheduled issuance.
 
-- Maximum supply: TBD, mandatory genesis parameter, no default.
+- Maximum supply: 100,000,000,000 OGO (approved 2026-11-08), mandatory genesis parameter, no default.
 - Reserved founder coins: 0.
 - Discretionary inflation: 0%.
 - Publicly specified issuance rules: 100%.
@@ -77,7 +77,7 @@ Recommendation recorded: commission a written legal analysis before genesis dist
 
 ARTICLE I: Monetary independence: OGO exists as an independent digital currency. Ownership, storage, transfer, and use do not require an OGO Systems account. OGO Systems has no unilateral ownership or control of the monetary network.
 
-ARTICLE II: Fixed maximum supply: predetermined max; numerical max TBD until formally approved; mandatory in genesis; no silent default; issuance stops at max; all issuance/supply data independently verifiable.
+ARTICLE II: Fixed maximum supply: predetermined max; numerical max approved as 100,000,000,000 OGO on 2026-11-08; mandatory in genesis; no silent default; issuance stops at max; all issuance/supply data independently verifiable.
 
 ARTICLE III: Scheduled issuance: predetermined schedule; protocol-defined mechanisms; rewards follow publicly documented consensus rules; no individual/company/founder/administrator has discretionary minting authority; ordinary governance cannot authorize additional discretionary issuance; no further issuance once max is reached.
 
@@ -91,7 +91,7 @@ ARTICLE VII: Security and supply integrity: supply cap enforced at protocol leve
 
 ARTICLE VIII: Independence: network must operate independently of OGO Systems. Third-party developers, independent validators, external wallets, exchanges, and applications can participate without mandatory reliance on OGO Systems.
 
-ARTICLE IX: Outstanding monetary parameters (require separate approval): maximum OGO supply; genesis circulating supply; issuance duration; reward schedule and reduction intervals; validator/delegator reward allocation; community distribution mechanism; community treasury funding; minimum validator requirements; staking/unbonding parameters; transaction fee policy.
+ARTICLE IX: Outstanding monetary parameters (require separate approval): genesis circulating supply; issuance duration; reward schedule and reduction intervals; validator/delegator reward allocation; community distribution mechanism; community treasury funding; minimum validator requirements; staking/unbonding parameters; transaction fee policy. The hard maximum supply (100,000,000,000 OGO) was approved on 2026-11-08 and is no longer outstanding.
 
 ARTICLE X: Authorization: this constitution establishes a proposed monetary design only. It does not authorize token creation/issuance, genesis allocation, public distribution, exchange listings, public testnet/mainnet, spending/financial commitments, publication, or deployment. All implementation/launch decisions remain subject to explicit founder approval and applicable community governance.
 
@@ -99,7 +99,7 @@ Founding principle: OGO Coin exists for its participating network, not as a priv
 
 ## 6. What remains to be designed
 
-- Maximum supply: TBD.
+- Maximum supply: 100,000,000,000 OGO (approved 2026-11-08).
 - Issuance duration and reduction schedule: TBD.
 - Validator/delegator reward percentages: TBD.
 - Community treasury funding: TBD.
