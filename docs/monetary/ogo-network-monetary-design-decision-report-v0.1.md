@@ -1,6 +1,6 @@
 # OGO Network: Monetary Design Decision Report v0.1
 
-Status: Research and design only. No monetary model has been approved. No maximum supply, no percentages, no intervals selected.
+Status: Research and design only. No monetary model has been approved. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. All figures in this document are illustrative normalizations, not the approved parameters.
 Date: 2026-11-06
 Project: OGO Network
 
@@ -171,7 +171,7 @@ Carry forward geometric decay as the primary candidate and hybrid as the leading
 - If no floor is wanted, choose geometric decay. It is simpler, already implemented in the Milestone B scaffold, and its one parameter (r) is the entire design. The open parameter is r, and section 2 is the guide.
 - If a floor is wanted so validators, community programs, and the treasury keep a known minimum through the schedule, choose hybrid. It costs four parameters instead of two and needs a new schedule type in x/ogocoin, but it is the only model that sustains late-schedule funding, and Polkadot's conversion shows a capped schedule plus a treasury redesign must be designed together, not separately.
 
-The next step after the family is chosen is parameter selection for that family, then the split, then fee analysis, then the maximum supply derived as genesis supply plus scheduled issuance. That order is the decision order Benross set.
+The next step after the family is chosen is parameter selection for that family, then the split, then fee analysis, then genesis supply and scheduled issuance chosen so their sum equals the approved maximum supply of 100,000,000,000 OGO. That order is the decision order Benross set.
 
 ## Addendum: Tightenings addressed (2026-11-06)
 

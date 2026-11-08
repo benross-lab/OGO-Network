@@ -1,6 +1,6 @@
 # OGO Network: Monetary Architecture Decision Preparation v0.1
 
-Status: Research and modeling only. No monetary model has been approved. No maximum supply, no percentages, no intervals selected. No token created, no contract deployed, no funds spent, no mainnet launch.
+Status: Research and modeling only. No monetary model has been approved. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. No token created, no contract deployed, no funds spent, no mainnet launch.
 Date: 2026-11-06
 Project: OGO Network
 
@@ -417,7 +417,7 @@ v0.2 section 9 gave the decision order as: period length first, then minimum val
 6. Post-issuance funding mechanism and fee share, disclosed before genesis. The mechanism with the strongest claim is a disclosed share of transaction fees to the treasury. Coretime and blockspace sales are supplements, not the plan. Endowment yield cannot sustain the illustrative spend at any plausible yield. Treasury staking is circular. A corporate revenue routing mechanism (M1) does not exist and cannot be counted until designed, governed, and disclosed.
 7. Fee policy evidence. What fee market is expected, at what average fee and volume, and when is it expected to be sufficient. The scenarios in section 5 are the evidence base; the Osmosis fee-funded experiment (Proposals 1052 and 1053, inflation ended 26 October 2026) should be tracked before any fee assumption is treated as plausible. The agent-transaction fee tension (a flat fee cannot serve both security funding and agent viability) needs a design answer before a fee policy is set.
 8. Model family (geometric or hybrid), with the section 6 evidence attached. The choice is between insurance during the schedule (hybrid floor) and insurance at its end (geometric tail).
-9. Schedule parameters for the chosen family, then the split, then the maximum supply derived as G + S_actual, with S_actual computed at genesis by exact integer summation and the dust left permanently unissued.
+9. Schedule parameters for the chosen family, then the split, then G and S_actual chosen so that G + S_actual = 100,000,000,000 OGO (approved hard maximum supply, 2026-11-08), with S_actual computed at genesis by exact integer summation and the dust left permanently unissued.
 10. Naming and branding for the three OGO assets, before any public launch.
 11. Written legal analysis (securities, money transmission, state licensing, tax, international, exchange admission) before genesis distribution or any token distribution. Not yet commissioned.
 
@@ -467,7 +467,7 @@ These cannot be decided responsibly on the current evidence. Each names what evi
 5. Post-issuance funding mechanism and fee share. Needs fee-demand evidence. The scenarios in section 5 are models, not forecasts, and the Osmosis experiment has no outcome data yet. No mechanism should be counted in the sustainability model until its share is disclosed and its demand is evidenced.
 6. Fee policy. Needs the agent-transaction tension resolved (a flat fee cannot serve both security funding and agent viability) and a decision on fee distribution. The fee scenarios show what must be true; they do not show what will be true.
 7. Model family (geometric or hybrid). Needs the decisions above it in the order: period length, validator set, spend level, funding mechanism, and fee evidence. The section 6 comparison is the evidence base, and it is complete. What is missing is not more comparison, but the upstream decisions that determine which model's advantages matter.
-8. Split, schedule parameters, and maximum supply. These follow the model family, in that order. The supply number is last, derived as G + S_actual.
+8. Split and schedule parameters. These follow the model family, in that order. The maximum supply number is approved as the ceiling (100,000,000,000 OGO, 2026-11-08); G and S_actual are chosen so that G + S_actual equals the approved ceiling.
 9. Legal analysis. Written legal analysis must be commissioned before genesis distribution or any token distribution. This is the longest-lead item and should be started before the other decisions are finalized, not after.
 
 ### 10.3 The one-sentence summary

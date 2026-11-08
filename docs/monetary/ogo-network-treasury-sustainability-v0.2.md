@@ -1,6 +1,6 @@
 # OGO Network: Treasury Sustainability v0.2
 
-Status: Research and mathematical modeling only. No monetary model has been approved. No maximum supply, no percentages, no intervals selected.
+Status: Research and mathematical modeling only. No monetary model has been approved. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. All figures in this document are illustrative normalizations, not the approved parameters.
 Date: 2026-11-06
 Builds on: Monetary Design Decision Report v0.1, Geometric vs Hybrid Deep-Dive v0.1, Hybrid Terminal Transition and Treasury Sustainability v0.1.
 
@@ -288,6 +288,6 @@ In order:
 3. Treasury spend level and spending policy, including the post-issuance rule. The level must be affordable under the chosen model or justified by named post-issuance revenue.
 4. Post-issuance funding mechanism and fee share, disclosed before genesis.
 5. Model family (geometric or hybrid), with the scenario evidence in section 5 attached.
-6. Schedule parameters for the chosen family, then the split, then the maximum supply derived as G + S_actual.
+6. Schedule parameters for the chosen family, then the split, then G and S_actual chosen so that G + S_actual = 100,000,000,000 OGO (approved hard maximum supply, 2026-11-08).
 
 That order is the decision order Benross set, extended by one step at the front: period length first, because it converts everything else into time.

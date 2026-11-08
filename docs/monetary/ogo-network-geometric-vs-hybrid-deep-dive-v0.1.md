@@ -1,6 +1,6 @@
 # OGO Network: Geometric vs. Hybrid Deep-Dive v0.1
 
-Status: Research and design only. No monetary model has been approved. No maximum supply, no percentages, no intervals selected.
+Status: Research and design only. No monetary model has been approved. Maximum supply approved 2026-11-08: 100,000,000,000 OGO. No percentages, no intervals selected. All figures in this document are illustrative normalizations, not the approved parameters.
 Date: 2026-11-06
 Source: Benross handoff, OGO Network Issuance Mathematics v0.1 (2026-11-06).
 
