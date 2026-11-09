@@ -1,8 +1,8 @@
 # OGO Network Global Readiness and Scale Roadmap
 
-**Status:** Strategy and engineering planning document. This document does not authorize implementation, public testnet/mainnet launch, token issuance, monetary changes, infrastructure spending, deployment, transaction broadcasting, or production release.
+**Status:** Strategy and engineering planning document. Planning only. This document does not authorize implementation, public testnet/mainnet launch, token issuance, monetary changes, infrastructure spending, deployment, transaction broadcasting, or production release.
 
-**Purpose:** Define the capabilities OGO Network would need to mature into a globally significant independent blockchain and integrated digital economy. Establish measurable stages, engineering workstreams, and evidence required before advancing.
+**Purpose:** Define the capabilities OGO Network would need to mature into a globally significant independent blockchain and integrated digital economy. Establish evidence-based stages and workstreams. Performance goals must be derived from OGO's own requirements and measured capabilities, not copied from another network's headline figures.
 
 ## 1. Strategic positioning
 
@@ -15,7 +15,7 @@ OGO is intended to develop as an integrated digital economy combining:
 - Verifiable transaction and ownership records.
 - A longer-term path toward broader OGO services and communications infrastructure.
 
-The differentiation hypothesis is that OGO combines network infrastructure, creation tools, distribution, ownership transfer, and payments within one ecosystem. This is a strategic hypothesis to validate through real usage, developer adoption, security, and independent ecosystem participation, not a claim of current market position.
+The differentiation hypothesis is that OGO combines network infrastructure, creation tools, distribution, ownership transfer, and payments within one ecosystem. Validate this through real usage, developer adoption, security, and independent ecosystem participation. Do not present it as an established market position.
 
 ### Reference models
 
@@ -169,19 +169,43 @@ Required capabilities:
 
 ## 4. Performance and scalability strategy
 
-### Proposed target ladder
+### 4.1 Treat external throughput figures as context, not OGO commitments
 
-These are engineering targets for investigation, not existing performance claims or commitments.
+The 100,000 TPS figure discussed in this planning conversation came from Ethereum's broader scaling ambition. In that context, it refers to throughput across Ethereum Layer 1 plus Layer 2 networks, not a claim that Ethereum mainnet alone processes 100,000 transactions per second.
 
-| Milestone | Throughput target | Required evidence |
-|---|---:|---|
-| Baseline | 1,000 committed TPS | Repeatable benchmark with documented hardware, transaction mix, latency, and finality |
-| Optimization | 5,000 committed TPS | Sustained benchmark and resource profile |
-| High throughput | 10,000 committed TPS | Sustained benchmark under representative workload |
-| Advanced scale | 25,000-50,000 committed TPS | Distributed execution/scaling design and fault testing |
-| Long-term ambition | 100,000 committed TPS | Independently reproducible benchmark with realistic transactions, durable commits, finality, and network-wide resource accounting |
+**OGO has not adopted 100,000 TPS as a target, requirement, roadmap milestone, or marketing claim.** Do not place it in OGO acceptance criteria or present it as a planned capability unless a future, explicit architecture decision approves it based on OGO use cases and evidence.
 
-TPS must mean successfully executed and committed transactions, not merely submitted requests or accepted messages.
+The Ethereum example is useful because it raises an architecture question: should a network scale primarily through one execution domain, or through a coordinated ecosystem of layers and execution environments? It is not a reason to copy Ethereum's design or throughput target.
+
+### 4.2 Determine OGO's actual workload first
+
+Before selecting TPS goals, model the expected OGO workload by transaction class:
+
+- Wallet transfers and payments.
+- Marketplace purchases and settlement.
+- Application ownership listings and transfers.
+- Developer payouts and revenue sharing.
+- Staking, delegation, undelegation, and validator operations.
+- Smart-contract calls, if/when supported.
+- OGO application and service-related transactions, where blockchain settlement is genuinely needed.
+
+For each class, estimate:
+- Expected daily active users and concurrent users under several adoption scenarios.
+- Transactions per active user and burst patterns.
+- Transaction size and state-read/write profile.
+- Required confirmation/finality experience.
+- Acceptable p50, p95, and p99 latency.
+- Peak-to-average traffic ratio.
+- Storage growth and retention needs.
+- Economic cost and fee sensitivity.
+
+Do not put every application event on-chain. Keep search, browsing, media delivery, large files, analytics, chat, and other high-volume data off-chain unless there is a clear reason for blockchain settlement or verifiable recording.
+
+### 4.3 Benchmark OGO before setting numeric goals
+
+Establish an honest baseline on the current implementation, then set incremental targets based on workload, user experience, validator decentralization, hardware cost, and security.
+
+Benchmark stages should be named **Baseline, Optimization 1, Optimization 2, and Scale Architecture Review** until measured results justify numerical milestones. Avoid pre-committing to 1K, 5K, 10K, 50K, or 100K TPS.
 
 Every benchmark must disclose:
 - Hardware specifications and cloud/provider details.
@@ -196,18 +220,35 @@ Every benchmark must disclose:
 - Validator agreement, missed blocks, and recovery behaviour.
 - Whether the run uses production-equivalent signatures and state transitions.
 
-### Architecture investigations
+TPS must mean successfully executed and committed transactions, not merely submitted requests or accepted messages. Report peak TPS separately from sustained committed TPS. Include workload mix; a benchmark dominated by simple transfers is not equivalent to one containing contract execution and complex state changes.
+
+### 4.4 Architecture investigations
 
 1. Profile consensus, execution, state storage, networking, and indexing separately.
 2. Identify the actual bottleneck before increasing hardware.
-3. Evaluate parallel execution for independent transactions.
+3. Evaluate parallel execution for independent transactions where application semantics permit it.
 4. Evaluate consensus and block-propagation optimizations.
 5. Evaluate state-storage and indexing performance.
 6. Separate validator traffic from public RPC, wallet, and marketplace query traffic.
-7. Evaluate horizontal scaling and multiple execution domains only with clear settlement and composability semantics.
-8. Benchmark on representative hardware and realistic validator topology.
+7. Compare a single-chain scaling path with coordinated execution layers or application-specific execution domains.
+8. Evaluate horizontal scaling only with clear settlement, security, composability, and failure semantics.
+9. Benchmark on representative hardware and realistic validator topology.
+10. Include decentralization and operating cost in every performance trade-off.
 
-A larger server alone does not guarantee 100K TPS. Scaling claims must follow measured results.
+A larger server alone does not guarantee higher useful throughput. Scaling claims must follow measured results and preserve the network's security and decentralization objectives.
+
+### 4.5 Architecture decision record
+
+Before adopting a scale architecture, produce an ADR comparing at least:
+
+- Optimizing the current Cosmos SDK + CometBFT chain.
+- Improving execution and state access within one chain.
+- Smart-contract execution options, including CosmWasm and Cosmos EVM if justified.
+- IBC-connected chains and application-specific chains.
+- Layer 2, rollup, or other settlement/execution separation approaches, with explicit explanation of how they fit OGO's stack.
+- Operational complexity, developer experience, security assumptions, liquidity fragmentation, user experience, and total cost.
+
+No architecture option is preselected by this roadmap. Return trade-offs and a recommendation for review.
 
 ## 5. Infrastructure capacity planning
 
@@ -216,7 +257,8 @@ Infrastructure should scale with demonstrated workload and security requirements
 Planning tiers:
 - **Development:** local/private development and acceptance testing.
 - **Initial network:** independently operated validators, secure RPC/API, indexer, monitoring, backups, and recovery.
-- **High performance:** distributed infrastructure sized from benchmark evidence and target service levels.
+- **Growth:** capacity added based on measured demand, service levels, and geographic/operator diversity.
+- **High performance:** distributed infrastructure sized from benchmark evidence and an approved scale architecture.
 
 Keep provider-neutral deployment practices where practical. Maintain clear separation among validators, public RPC/API, indexers, monitoring, and backup systems. Avoid making a single bastion or cloud provider a permanent architectural dependency.
 
@@ -275,11 +317,12 @@ Publish transparent monetary documentation and reproducible supply accounting be
 - Establish grants, support, and ecosystem contribution processes.
 - Track third-party apps and developer retention.
 
-### Stage 5 — Interchain expansion
+### Stage 5 — Interchain and scaling expansion
 - Evaluate and implement approved IBC capabilities.
 - Evaluate Ethereum-compatible tooling or EVM support.
-- Conduct independent security review of all cross-chain components.
-- Launch interoperability only after separate authorization.
+- Complete the scaling architecture ADR using OGO workload evidence.
+- Conduct independent security review of all cross-chain and multi-layer components.
+- Launch interoperability or additional execution layers only after separate authorization.
 
 ### Stage 6 — Global adoption
 - Build partnerships and integrations.
@@ -295,7 +338,7 @@ Maintain a public-facing dashboard, with internal evidence links, for:
 |---|---|
 | Independent validators and geographic/operator diversity | Decentralization |
 | Network uptime and missed blocks | Reliability |
-| Committed TPS and latency percentiles | Performance |
+| Committed TPS and latency percentiles by transaction class | Performance |
 | Active wallets and retained users | Adoption |
 | Daily transactions and fee activity | Network utility |
 | Staked OGO and validator concentration | Participation |
@@ -304,8 +347,9 @@ Maintain a public-facing dashboard, with internal evidence links, for:
 | Supply, issuance, and treasury reconciliation | Monetary transparency |
 | Security findings and remediation status | Trust |
 | RPC/indexer availability and sync lag | User-facing infrastructure |
+| Hardware cost per sustained committed TPS | Efficiency |
 
-Metrics must include definitions, time windows, data sources, and known limitations. Avoid vanity metrics without context.
+Metrics must include definitions, time windows, data sources, workload context, and known limitations. Avoid vanity metrics without context.
 
 ## 9. Release gates and authorization boundaries
 
@@ -328,10 +372,11 @@ Each such activity requires its own explicit approval, with the relevant scope, 
 
 1. Reconcile this roadmap against the current repository and active Stage B/Stage C deliverables. Mark each capability as implemented, tested, in progress, designed only, or not started.
 2. Produce an architecture decision record comparing current Cosmos SDK/CometBFT direction, CosmWasm, Cosmos EVM, IBC, and alternative scaling options.
-3. Produce a benchmark specification for 1K, 5K, 10K, 25K-50K, and 100K committed TPS.
-4. Produce a first-class marketplace ownership-transfer architecture covering payment, software package delivery, rights, access, provenance, and disputes.
-5. Produce a security and decentralization readiness matrix.
-6. Produce a costed, provider-neutral infrastructure scaling model.
-7. Produce a measurable adoption and ecosystem dashboard specification.
+3. Produce an OGO workload model based on wallet, marketplace, staking, developer, and application use cases.
+4. Produce a benchmark specification and establish current measured baseline before proposing numeric TPS milestones.
+5. Produce a first-class marketplace ownership-transfer architecture covering payment, software package delivery, rights, access, provenance, and disputes.
+6. Produce a security and decentralization readiness matrix.
+7. Produce a costed, provider-neutral infrastructure scaling model.
+8. Produce a measurable adoption and ecosystem dashboard specification.
 
-Return findings and proposed decisions for review. Do not implement, provision, deploy, broadcast, or change monetary/network parameters as part of this planning task.
+Return findings, evidence, and proposed decisions for review. Do not implement, provision, deploy, broadcast, or change monetary/network parameters as part of this planning task.
