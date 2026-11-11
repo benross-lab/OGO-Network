@@ -2,6 +2,8 @@
 
 OGO Network is an independent open-source Layer 1 blockchain with native OGO Coin: fixed maximum supply, scheduled issuance, zero reserved founder allocation, community governance. OGO Systems creates the initial technology. The OGO community ultimately governs the network.
 
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for the full text.
+
 Status: local prototype only. The chain in this repository runs on one machine as a development network. There is no mainnet, no public testnet, no token issued, no spending, and no production infrastructure. A public testnet is NOT authorized: do not present one as available. All monetary values in the prototype are TEST-ONLY and are labelled so everywhere they appear.
 
 ## What is here
@@ -18,7 +20,7 @@ Status: local prototype only. The chain in this repository runs on one machine a
 - OGO Explorer: a future repository, not created yet. No placeholder.
 - Milestone C: the implementation milestone (real SDK modules, real x/epochs wiring, signature verification, staking, slashing, upgrades) is in progress in local staging and is NOT in this repository. It lands when its own completion verification passes.
 - The whitepaper draft, the exchange readiness report, the finance provider research, and the economy work: not network implementation scope, not published here.
-- No license has been selected yet. This code is published without a license pending the founder's decision. Do not assume a license.
+- Licensed under the Apache License, Version 2.0 (see [LICENSE](LICENSE)).
 
 ## Build
 
