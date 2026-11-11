@@ -2,6 +2,8 @@
 
 OGO Network is an independent open-source Layer 1 blockchain with native OGO Coin: fixed maximum supply, scheduled issuance, zero reserved founder allocation, community governance. OGO Systems creates the initial technology. The OGO community ultimately governs the network.
 
+The OGO application that will use this network is live at https://ogosystems.com.
+
 Licensed under the MIT License. See [LICENSE](LICENSE) for the full text.
 
 Status: local prototype only. The chain in this repository runs on one machine as a development network. There is no mainnet, no public testnet, no token issued, no spending, and no production infrastructure. A public testnet is NOT authorized: do not present one as available. All monetary values in the prototype are TEST-ONLY and are labelled so everywhere they appear.
