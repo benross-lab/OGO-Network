@@ -10,6 +10,7 @@ chain/localnet-data/
 poc-4validator/chain/localnet-data/
 
 # Node logs and snapshots (runtime output, never commit)
+*.log
 /node.log
 chain/**/node.log
 poc-4validator/chain/**/node.log
